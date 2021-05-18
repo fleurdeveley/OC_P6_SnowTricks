@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block body %}
+    <h1>SNOWTRICKS</h1>
+    <p>Site communautaire de figures de snowboard</p>
+
+    <div class="row mb-3">
+        {% for i in 1..5 %}
+        <div class="col">
+            <div class="card">
+                <img src="https://picsum.photos/150/150" class="img-fluid" 
+                alt="Image de la figure">
+                <div class="card-body">
+                    <a href="#" class="card-link">Figure</a>
+                </div>
+            </div>
+        </div> 
+        {% endfor %}
+    </div>
+
+    <div class="row mb-3">
+        {% for i in 1..5 %}
+        <div class="col">
+            <div class="card">
+                <img src="https://picsum.photos/150/150" class="img-fluid" 
+                alt="Image de la figure">
+                <div class="card-body">
+                    <a href="#" class="card-link">Figure</a>
+                </div>
+            </div>
+        </div> 
+        {% endfor %}
+    </div>
+
+    <div class="d-grid gap-2 text-center">
+        <button class="btn btn-lg btn-primary" type="button">Afficher plus</button>
+    </div>   
+{% endblock %}
