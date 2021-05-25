@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +25,12 @@ class Picture
      * @ORM\Column(type="string", length=50)
      */
     private $path;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $trick;
 
     public function getId(): ?int
     {
@@ -52,6 +57,18 @@ class Picture
     public function setPath(string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): self
+    {
+        $this->trick = $trick;
 
         return $this;
     }
