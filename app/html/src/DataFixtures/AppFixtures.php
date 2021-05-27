@@ -6,15 +6,20 @@ use App\Entity\Category;
 use App\Entity\Picture;
 use App\Entity\Trick;
 use App\Entity\Video;
-use App\Repository\VideoRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use PhpParser\Node\Stmt\Foreach_;
-use Proxies\__CG__\App\Entity\Category as EntityCategory;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
+    protected $slugger;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
@@ -43,7 +48,8 @@ class AppFixtures extends Fixture
                 ->setMainPicture($faker->imageUrl(400, 400, true))
                 ->setCreatedAt($faker->dateTime)
                 ->setUpdateAt($faker->dateTime)
-                ->setCategory($category);
+                ->setCategory($category)
+                ->setSlug(strtolower($this->slugger->slug($trick->getName())));
 
             $manager->persist($trick);
 
