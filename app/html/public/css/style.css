@@ -1,3 +1,60 @@
 body {
-    font-size: 16px;
+    font-family: 'open-sans';
+}
+
+.bg-perso1 {
+    background-color: #b7c8d5 !important;
+}
+
+.bg-perso2 {
+    background-color: #2d4250 !important;
+}
+
+.bg-perso3 {
+    background-color: #d37e43 !important;
+}
+
+.bg-perso4 {
+    background-color: #7e4626 !important;
+}
+
+.color-perso1 {
+    color: #b7c8d5 !important;
+}
+
+.color-perso2 {
+    color: #2d4250 !important;
+}
+
+.color-perso3 {
+    color: #d37e43 !important;
+}
+
+.color-perso4 {
+    color: #7e4626 !important;
+}
+
+.jumbotron {
+    background: url('/img/home.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    margin-top: -48px;
+}
+
+#header h1 {
+    font-size: 40px !important;
+}
+
+#header h4 {
+    font-size: 21px !important;
+}
+
+header .container-fluid {
+    height: 100%;
+}
+
+.header-arrow {
+    text-align: right;
+    margin-top: -40px;
+    padding: 0 10px;
 }
