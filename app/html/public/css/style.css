@@ -2,6 +2,7 @@ body {
     font-family: 'open-sans';
 }
 
+/* background color palette */
 .bg-perso1 {
     background-color: #b7c8d5 !important;
 }
@@ -18,6 +19,7 @@ body {
     background-color: #7e4626 !important;
 }
 
+/* text color palette */
 .color-perso1 {
     color: #b7c8d5 !important;
 }
@@ -34,6 +36,7 @@ body {
     color: #7e4626 !important;
 }
 
+/* formatting header */
 .jumbotron {
     background: url('/img/home.jpg') no-repeat center center;
     background-size: cover;
@@ -42,11 +45,12 @@ body {
 }
 
 #header h1 {
-    font-size: 40px !important;
+    font-size: 45px !important;
+    text-shadow: #d37e43 0.1em 0.1em 0.1em;
 }
 
 #header h4 {
-    font-size: 21px !important;
+    font-size: 22px !important;
 }
 
 header .container-fluid {
@@ -58,3 +62,16 @@ header .container-fluid {
     margin-top: -40px;
     padding: 0 10px;
 }
+
+/* formatting lien */
+a {
+    font-size: 16px;
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+    color: #7e4626 !important;
+  }
+  
+  a:hover {
+    color: #d37e43 !important;
+  }

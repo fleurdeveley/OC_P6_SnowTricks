@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	SnowTricks -
+	{{ trick.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<img src="{{ trick.firstPicture.src }}" class="card-img-top" alt="{{ trick.name }}" style="height: 400px;">
+				<div class="card-body">
+					<div class="d-flex justify-content-evenly" style="height: 100px">
+						{% for picture in trick.pictures %}
+							<img src="{{ picture.src }}" class="img-thumbnail" alt="{{picture.name}}">
+						{% endfor %}
+
+						{% for video in trick.videos %}
+							<iframe height="100px" src="{{ video.src }}" 
+							title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+							encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						{% endfor %}
+					</div>
+
+					<h4 class="card-title">{{ trick.name | upper}}</h4>
+
+					<p class="card-text">{{ trick.content }}</p>
+
+					<div class="d-flex justify-content-evenly">
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="fas fa-snowboarding"></i>
+								Catégorie :
+								{{ trick.category.name }}</span>
+						</h5>
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-user"></i>
+								Auteur :
+							</span>
+						</h5>
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-calendar-alt"></i>
+								Publié le
+								{{ trick.createdAt | date("d/m/Y") }}</span>
+						</h5>
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-calendar-alt"></i>
+								Modifié le
+								{{ trick.updatedAt | date("d/m/Y") }}
+							</span>
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

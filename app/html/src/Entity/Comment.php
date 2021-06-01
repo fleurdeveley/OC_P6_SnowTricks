@@ -23,11 +23,6 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -54,18 +49,6 @@ class Comment
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
@@ -78,14 +61,14 @@ class Comment
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }

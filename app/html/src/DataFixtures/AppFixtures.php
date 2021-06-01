@@ -44,12 +44,11 @@ class AppFixtures extends Fixture
             $trick = new Trick;
 
             $trick->setName($trickName)
-                ->setContent($faker->paragraph())
-                ->setMainPicture($faker->imageUrl(400, 400, true))
+                ->setContent($faker->paragraph(5))
+                ->setSlug(strtolower($this->slugger->slug($trick->getName())))
                 ->setCreatedAt($faker->dateTime)
-                ->setUpdateAt($faker->dateTime)
-                ->setCategory($category)
-                ->setSlug(strtolower($this->slugger->slug($trick->getName())));
+                ->setUpdatedAt($faker->dateTime)
+                ->setCategory($category);
 
             $manager->persist($trick);
 
@@ -58,7 +57,7 @@ class AppFixtures extends Fixture
                 $picture = new Picture;
 
                 $picture->setName($trick->getName() . '' . $p . '.jpg')
-                    ->setPath('img/tricks')
+                    ->setSrc($faker->imageUrl(400, 400, true))
                     ->setTrick($trick);
                 
                 $manager->persist($picture);
@@ -68,8 +67,8 @@ class AppFixtures extends Fixture
             for($v = 0; $v < mt_rand(1, 2); $v++){
                 $video = new Video;
 
-                $video->setName($trick->getName() . '' . $v . '.jpg')
-                    ->setPath('img/tricks')
+                $video->setName($trick->getName() . '' . $v)
+                    ->setSrc('https://www.youtube.com/embed/SFYYzy0UF-8')
                     ->setTrick($trick);
                 
                 $manager->persist($video);

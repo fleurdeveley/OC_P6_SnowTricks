@@ -18,14 +18,14 @@ class Video
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $path;
+    private $src;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
@@ -50,14 +50,14 @@ class Video
         return $this;
     }
 
-    public function getPath(): ?string
+    public function getSrc(): ?string
     {
-        return $this->path;
+        return $this->src;
     }
 
-    public function setPath(string $path): self
+    public function setSrc(string $src): self
     {
-        $this->path = $path;
+        $this->src = $src;
 
         return $this;
     }

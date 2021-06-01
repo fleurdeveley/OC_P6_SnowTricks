@@ -19,19 +19,19 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="text")
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $main_picture;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,7 +41,7 @@ class Trick
     /**
      * @ORM\Column(type="datetime")
      */
-    private $update_at;
+    private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
@@ -54,15 +54,11 @@ class Trick
      */
     private $pictures;
 
+    private $firstPicture;
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
      */
     private $videos;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $slug;
 
     public function __construct()
     {
@@ -82,6 +78,18 @@ class Trick
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getContent(): ?string
     {
         return $this->content;
@@ -90,18 +98,6 @@ class Trick
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getMainPicture(): ?string
-    {
-        return $this->main_picture;
-    }
-
-    public function setMainPicture(string $main_picture): self
-    {
-        $this->main_picture = $main_picture;
 
         return $this;
     }
@@ -118,14 +114,14 @@ class Trick
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -172,6 +168,16 @@ class Trick
         return $this;
     }
 
+    public function getFirstPicture()
+    {
+        if(count($this->getPictures()) > 0) {
+            $pictures = $this->getPictures();
+            return $pictures[0];
+        } 
+        
+        return null;
+    }
+
     /**
      * @return Collection|Video[]
      */
@@ -198,18 +204,6 @@ class Trick
                 $video->setTrick(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
