@@ -37,7 +37,7 @@ body {
 }
 
 /* formatting header */
-.jumbotron {
+.jumbotron_header {
     background: url('/img/home.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;
@@ -69,9 +69,37 @@ a {
     outline: none;
     text-decoration: none;
     padding: 2px 1px 0;
-    color: #7e4626 !important;
+    color: #2d4250 !important;
   }
   
   a:hover {
-    color: #d37e43 !important;
+    color: #7e4626 !important;
   }
+
+  /* formatting trick */
+  .card-img-overlay {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#trick h4 {
+    font-size: 30px !important;
+    text-shadow: #2d4250 0.1em 0.1em 0.1em;
+    height: 100vh;
+    margin-top: 250px;  
+}
+
+#trick a,
+#tricks a {
+    color: #2d4250;
+    padding: 0 10px;
+}
+
+.picture {
+    height: 200px;
+}
+
+.iframe {
+    height: 200px;
+}

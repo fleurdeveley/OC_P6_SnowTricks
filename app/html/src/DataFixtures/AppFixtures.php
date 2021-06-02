@@ -28,6 +28,8 @@ class AppFixtures extends Fixture
         $categories = [];
         $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
         $tricksName = ['mute', 'nose grab', 'japan', 'slide', 'tail slide', '360°', '720°', '1080°', 'backside air', 'method air'];
+        $pictures =  ['/img/snowtrick1.jpg', '/img/snowtrick2.jpg', '/img/snowtrick3.jpg', '/img/snowtrick4.jpg', '/img/snowtrick5.jpg'];
+        $videos = ['https://www.youtube.com/embed/SFYYzy0UF-8', 'https://www.youtube.com/embed/FuZc3fTmUnc'];
 
         // 4 categories
         foreach($categoriesName as $categoryName) {
@@ -44,7 +46,7 @@ class AppFixtures extends Fixture
             $trick = new Trick;
 
             $trick->setName($trickName)
-                ->setContent($faker->paragraph(5))
+                ->setContent($faker->paragraph(15))
                 ->setSlug(strtolower($this->slugger->slug($trick->getName())))
                 ->setCreatedAt($faker->dateTime)
                 ->setUpdatedAt($faker->dateTime)
@@ -57,7 +59,7 @@ class AppFixtures extends Fixture
                 $picture = new Picture;
 
                 $picture->setName($trick->getName() . '' . $p . '.jpg')
-                    ->setSrc($faker->imageUrl(400, 400, true))
+                    ->setSrc($faker->randomElement($pictures))
                     ->setTrick($trick);
                 
                 $manager->persist($picture);
@@ -68,7 +70,7 @@ class AppFixtures extends Fixture
                 $video = new Video;
 
                 $video->setName($trick->getName() . '' . $v)
-                    ->setSrc('https://www.youtube.com/embed/SFYYzy0UF-8')
+                    ->setSrc($faker->randomElement($videos))
                     ->setTrick($trick);
                 
                 $manager->persist($video);

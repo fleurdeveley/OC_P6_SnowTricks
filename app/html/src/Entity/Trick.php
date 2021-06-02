@@ -174,8 +174,8 @@ class Trick
             $pictures = $this->getPictures();
             return $pictures[0];
         } 
-        
-        return null;
+
+        return ('/img/defaultPicture.jpg');
     }
 
     /**
