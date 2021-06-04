@@ -22,28 +22,38 @@
 
 {# liste des tricks #}
 {% block body %}
-	<div class="row mb-3 pt-3" id="tricks">
-		{% for trick in tricks %}
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-				<div class="card">
-					<img src="{{ trick.firstPicture.src }}" class="img-fluid" alt="{{ trick.name }}">
 
-					<div class="card-body d-inline">
-						<a href="{{ path('trick', {'slug': trick.slug}) }}" class="card-link fw-bold">{{ trick.name | upper }}</a>
+	<div class="d-flex flex-wrap justify-content-between mb-3" id="tricks">
+		{% for trick in tricks | slice (0, 10) %}
+			<div class="card mb-3">
+				<img src="{{ trick.firstPicture.src }}" class="img-fluid" alt="{{ trick.name }}" style="max-width: 250px">
 
-						<a href="#"><i class="fas fa-pencil-alt"></i></a>
+				<div class="card-body d-inline">
+					<a href="{{ path('trick', {'slug': trick.slug}) }}" class="card-link fw-bold">{{ trick.name | upper }}</a>
 
-						<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" data-bs-target="#modal-{{ trick.id }}">
-  							<i class="fas fa-trash-alt"></i>
-						</button>
-					</div>
+					<a href="#">
+						<i class="fas fa-pencil-alt"></i>
+					</a>
 
+					<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" data-bs-target="#modal-{{ trick.id }}">
+						<i class="fas fa-trash-alt"></i>
+					</button>
 				</div>
 			</div>
+
+			{% if loop.index is divisible by(5) %}
+				<div class="break"></div>
+			{% endif %}
 		{% endfor %}
 	</div>
 
 	<div class="text-center">
-		<button type="button" class="btn btn-dark btn-lg bg-perso2">Afficher plus</button>
+		<button type="button" class="btn btn-dark btn-lg bg-perso2" id="loadMoreTricks">
+			<i class="fas fa-spinner"></i>
+			Afficher plus
+		</button>
 	</div>
+
 {% endblock %}
+
+{% block javascript %}{% endblock %}
