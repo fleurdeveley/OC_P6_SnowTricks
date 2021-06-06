@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	SnowTricks - Création d'une figure
+{% endblock %}
+
+{% block body %}
+	<div class="row my-3 mb-3">
+		<div class="form-control">
+
+			<div class="text-center">
+				<h1>Nouvelle figure</h1>
+			</div>
+
+			{{ form_start(formView) }}
+
+			<div class="row">
+				<div class="col">
+					<div class="form-group mb-3">
+						{{ form_label(formView.name) }}
+						{{ form_widget(formView.name, {'attr': {'class': 'form-control'}}) }}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(formView.content) }}
+						{{ form_widget(formView.content, {'attr': {'class': 'form-control'}}) }}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(formView.category) }}
+						{{ form_widget(formView.category, {'attr': {'class': 'form-control'}}) }}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(formView.picture) }}
+						{{ form_widget(formView.picture, {'attr': {'class': 'form-control'}}) }}
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(formView.video) }}
+						{{ form_widget(formView.video, {'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+			</div>
+
+			<div class="text-center">
+				<button type="submit" class="btn text-white bg-perso2 mb-3">
+					<i class="fas fa-save"></i>
+					Ajouter la nouvelle figure
+				</button>
+			</div>
+
+			{{ form_end(formView) }}
+		</div>
+	</div>
+
+{% endblock %}
