@@ -43,7 +43,7 @@ body {
 }
 
 /* formatting header */
-.jumbotron_header {
+.jumbotron {
     background: url('/img/home.jpg') no-repeat center center;
     background-size: cover;
     height: 100vh;

@@ -6,7 +6,7 @@
 
 {# image, titre et phrase d'accroche #}
 {% block header %}
-	<div class="jumbotron_header jumbotron-fluid" id="header">
+	<div class="jumbotron jumbotron-fluid" id="header">
 		<div class="container-fluid d-flex flex-column justify-content-center text-center color-perso2">
 			<h1 class="text-uppercase fw-bolder">snowtricks</h1>
 			<h4 class="fw-bolder">Site communautaire de figures de snowboard</h4>
@@ -44,11 +44,14 @@
 			{% if loop.index is divisible by(5) %}
 				<div class="break"></div>
 			{% endif %}
+
+			{% include 'trick/delete.html.twig' %}
+
 		{% endfor %}
 	</div>
 
 	<div class="text-center">
-		<button type="button" class="btn btn-dark btn-lg bg-perso2" id="loadMoreTricks">
+		<button type="button" class="btn text-white btn-lg bg-perso2" id="loadMoreTricks">
 			<i class="fas fa-spinner"></i>
 			Afficher plus
 		</button>
