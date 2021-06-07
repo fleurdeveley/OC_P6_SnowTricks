@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Repository\CategoryRepository;
 use App\Repository\TrickRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -13,8 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickController extends AbstractController
 {
@@ -39,43 +44,20 @@ class TrickController extends AbstractController
     /**
      * @Route("/admin/trick/create", name="trick_create")
      */
-    public function create(FormFactoryInterface $factory)
+    public function create(Request $request, SluggerInterface $slugger,
+    EntityManagerInterface $em)
     {
-        $builder = $factory->createBuilder();
+        $form = $this->createForm(TrickType::class);
 
-        $builder->add('name', TextType::class, [
-            'label' => 'Nom de la figure',
-            ])
+        $form->handleRequest($request);
 
-            ->add('content', TextareaType::class, [
-                'label' => 'Description',
-                'attr' => ['class' => 'form-control']
-            ])
+        if($form->isSubmitted()) {
+            $trick =$form->getData();
+            $trick->setSlug(strtolower($slugger->slug($trick->getName())));
 
-            ->add('category', EntityType::class, [
-                'label' => 'Catégorie',
-                'attr' => ['class' => 'form-control', 'placeholder' => '-Choisir une catégorie-'],
-                'class' => Category::class,
-                'choice_label' => 'name'
-            ])
-
-            ->add('picture', UrlType::class, [
-                'label' => 'Images',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Sélectionner 1 à 3 url concernant des images.'
-                ],            
-            ])
-
-            ->add('video', UrlType::class, [
-                'label' => 'Vidéos',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Sélectionner 1 à 3 url concernant des vidéos.'
-                ],
-            ]);
-
-        $form = $builder->getForm();
+            $em->persist($trick);
+            $em->flush();
+        }
 
         $formView = $form->createView();
 

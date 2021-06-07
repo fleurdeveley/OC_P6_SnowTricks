@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{# {% form_theme formView 'form_themes: ['bootstrap_4_layout.html.twig']' %} #}
+
 {% block title %}
 	SnowTricks - Création d'une figure
 {% endblock %}
@@ -17,28 +19,23 @@
 			<div class="row">
 				<div class="col">
 					<div class="form-group mb-3">
-						{{ form_label(formView.name) }}
-						{{ form_widget(formView.name, {'attr': {'class': 'form-control'}}) }}
+						{{ form_row(formView.name) }}
 					</div>
 
 					<div class="form-group mb-3">
-						{{ form_label(formView.content) }}
-						{{ form_widget(formView.content, {'attr': {'class': 'form-control'}}) }}
+						{{ form_row(formView.content) }}
 					</div>
 
 					<div class="form-group mb-3">
-						{{ form_label(formView.category) }}
-						{{ form_widget(formView.category, {'attr': {'class': 'form-control'}}) }}
+						{{ form_row(formView.category) }}
 					</div>
 
 					<div class="form-group mb-3">
-						{{ form_label(formView.picture) }}
-						{{ form_widget(formView.picture, {'attr': {'class': 'form-control'}}) }}
+						{{ form_row(formView.picture) }}
 					</div>
 
 					<div class="form-group mb-3">
-						{{ form_label(formView.video) }}
-						{{ form_widget(formView.video, {'attr': {'class': 'form-control'}}) }}
+						{{ form_row(formView.video) }}
 					</div>
 				</div>
 			</div>
@@ -53,5 +50,13 @@
 			{{ form_end(formView) }}
 		</div>
 	</div>
+{% endblock %}
 
+{% block form_row %}
+	<div class="form-group">
+		{{ form_label(form) }}
+		{{ form_widget(form, {'attr': {'class': 'form-control'} }) }}
+		{{ form_help(form) }}
+		{{ form_errors(form) }}
+	</div>
 {% endblock %}
