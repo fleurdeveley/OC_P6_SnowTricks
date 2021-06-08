@@ -18,8 +18,8 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name', TextType::class, [
-            'label' => 'Nom de la figure'
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la figure'
             ])
 
             ->add('content', TextareaType::class, [
@@ -30,20 +30,20 @@ class TrickType extends AbstractType
                 'label' => 'Catégorie',
                 'placeholder' => '--Choisir une catégorie--',
                 'class' => Category::class,
-                'choice_label' => function(Category $category){
+                'choice_label' => function (Category $category) {
                     return ucfirst($category->getName());
                 }
-            ])
-
-            ->add('picture', FileType::class, [
-                'label' => 'Image de la figure',
-                'attr' => ['placeholder' => 'Tapez une URL d\'image'],            
-            ])
-
-            ->add('video', UrlType::class, [
-                'label' => 'Vidéo de la figure',
-                'attr' => ['placeholder' => 'Tapez une URL de vidéo'],
             ]);
+
+            // ->add('picture', FileType::class, [
+            //     'label' => 'Image de la figure',
+            //     'attr' => ['placeholder' => 'Tapez une URL d\'image'],
+            // ])
+
+            // ->add('video', UrlType::class, [
+            //     'label' => 'Vidéo de la figure',
+            //     'attr' => ['placeholder' => 'Tapez une URL de vidéo'],
+            // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
