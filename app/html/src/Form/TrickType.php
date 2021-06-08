@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -34,7 +35,7 @@ class TrickType extends AbstractType
                 }
             ])
 
-            ->add('picture', UrlType::class, [
+            ->add('picture', FileType::class, [
                 'label' => 'Image de la figure',
                 'attr' => ['placeholder' => 'Tapez une URL d\'image'],            
             ])
