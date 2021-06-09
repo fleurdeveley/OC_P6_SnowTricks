@@ -1,45 +1,51 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
-			    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="{{ path('homepage') }}">
-			<img src="/img/logo.jpg" alt="" width="64" height="64" class="d-inline-block align-text-center">
-			SnowTricks
-		</a>
-		<div class="collapse navbar-collapse " id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">
-						<i class="fas fa-home"></i>
-						Accueil
-					</a>
-				</li>
-				<li class="nav-item">
+<nav class="navbar navbar-expand-lg navbar-dark bg-light sticky-top p-1">
+	<a class="navbar-brand py-0" href="{{ path('homepage') }}">
+		<img src="/img/logo.png" alt="SnowTricks logo" width="50" height="50">
+		SnowTricks
+	</a>
+
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="mainNavbar">
+		<ul class="navbar-nav ms-auto">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">
+					<i class="fas fa-home"></i>
+					Accueil
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<div class="d-flex">
 					<a class="nav-link" href="/#tricks">
 						<i class="fas fa-snowboarding"></i>
 						Figures
 					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fas fa-sign-in-alt"></i>
-						Se connecter
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fas fa-user-plus"></i>
-						S'inscrire
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fas fa-sign-out-alt"></i>
-						Se déconnecter</a>
-				</li>
-			</ul>
-		</div>
+				</div>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i class="fas fa-sign-in-alt"></i>
+					Se connecter
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i class="fas fa-user-plus"></i>
+					S'inscrire
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="#">
+					<i class="fas fa-sign-out-alt"></i>
+					Se déconnecter
+				</a>
+			</li>
+		</ul>
 	</div>
 </nav>
