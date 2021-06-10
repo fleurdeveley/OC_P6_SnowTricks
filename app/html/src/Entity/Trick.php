@@ -6,6 +6,7 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -21,6 +22,8 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="Le nom  de la est obligatoire.")
+     * @Assert\Length(min=3, max=50, minMessage="Le nom de la figure doit avoir au moins 3 caractères.")
      */
     private $name;
 
@@ -31,6 +34,7 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le nom  de la est obligatoire.")
      */
     private $content;
 
@@ -77,7 +81,7 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -101,7 +105,7 @@ class Trick
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 

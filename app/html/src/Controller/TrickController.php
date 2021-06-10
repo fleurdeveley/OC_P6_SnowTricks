@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TrickController extends AbstractController
 {
@@ -100,7 +101,8 @@ class TrickController extends AbstractController
     /**
      * @Route("/admin/trick/{slug}/edit", name="trick_edit")
      */
-    public function edit($slug, TrickRepository $trickRepository, Request $request, EntityManagerInterface $em) 
+    public function edit($slug, TrickRepository $trickRepository, Request $request, 
+    EntityManagerInterface $em, ValidatorInterface $validator) 
     {
         $trick = $trickRepository->findOneBySlug($slug);
 
@@ -108,7 +110,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUpdatedAt(new \DateTime());
             $em->flush();
 

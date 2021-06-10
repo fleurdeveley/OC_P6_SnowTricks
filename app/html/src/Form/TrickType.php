@@ -19,11 +19,13 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de la figure'
+                'label' => 'Nom de la figure',
+                'required' => false
             ])
 
             ->add('content', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
+                'required' => false
             ])
 
             ->add('category', EntityType::class, [
