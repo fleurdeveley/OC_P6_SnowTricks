@@ -22,7 +22,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="Le nom  de la est obligatoire.")
+     * @Assert\NotBlank(message="Le nom  de la figure est obligatoire.")
      * @Assert\Length(min=3, max=50, minMessage="Le nom de la figure doit avoir au moins 3 caractères.")
      */
     private $name;
@@ -34,7 +34,7 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Le nom  de la est obligatoire.")
+     * @Assert\NotBlank(message="Le nom  de la figure est obligatoire.")
      */
     private $content;
 
