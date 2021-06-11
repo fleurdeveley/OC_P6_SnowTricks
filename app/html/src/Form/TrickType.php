@@ -36,13 +36,13 @@ class TrickType extends AbstractType
                     return ucfirst($category->getName());
                 }
             ]);
-
-            // ->add('picture', FileType::class, [
+            
+            // ->add('pictures', FileType::class, [
             //     'label' => 'Image de la figure',
             //     'attr' => ['placeholder' => 'Tapez une URL d\'image'],
             // ])
 
-            // ->add('video', UrlType::class, [
+            // ->add('videos', UrlType::class, [
             //     'label' => 'Vidéo de la figure',
             //     'attr' => ['placeholder' => 'Tapez une URL de vidéo'],
             // ]);

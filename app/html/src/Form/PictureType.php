@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Picture;
-use App\Entity\Trick;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,8 +19,7 @@ class PictureType extends AbstractType
             ])
             ->add('src', FileType::class, [
                 'label' => 'Fichier de l\'image'
-            ])
-            ->add('trick');
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
