@@ -34,7 +34,7 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Le nom  de la figure est obligatoire.")
+     * @Assert\NotBlank(message="La description de la figure est obligatoire.")
      */
     private $content;
 
@@ -93,7 +93,7 @@ class Trick
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 

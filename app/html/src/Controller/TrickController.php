@@ -57,7 +57,7 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $trick->setCreatedAt(new \DateTime());
             $trick->setUpdatedAt($trick->getCreatedAt());
             $trick->setSlug(strtolower($slugger->slug($trick->getName())));
