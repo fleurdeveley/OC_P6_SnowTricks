@@ -1,14 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% form_theme formView _self %}
-
 {% block title %}
 	SnowTricks - Edition de
 	{{ trick.name }}
 {% endblock %}
 
 {% block body %}
-	<div class="row my-3 mb-3">
+	<div class="row">
 		<div class="form-control">
 
 			<div class="text-center color-perso2">
@@ -34,14 +32,5 @@
 
 			{{ form_end(formView) }}
 		</div>
-	</div>
-{% endblock %}
-
-{% block form_row %}
-	<div class="form-group mb-3">
-		{{ form_label(form) }}
-		{{ form_widget(form, {'attr': {'class': 'form-control'} }) }}
-		{{ form_help(form) }}
-		{{ form_errors(form) }}
 	</div>
 {% endblock %}
