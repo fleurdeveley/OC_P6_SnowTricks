@@ -19,8 +19,7 @@ class VideoType extends AbstractType
             ])
             ->add('src', UrlType::class, [
                 'label' => 'Url de la vidéo'
-            ])
-            ->add('trick');
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

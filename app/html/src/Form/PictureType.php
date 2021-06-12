@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Picture;
+use App\Repository\PictureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,7 +18,7 @@ class PictureType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom de l\'image'
             ])
-            ->add('src', FileType::class, [
+            ->add('file', FileType::class, [
                 'label' => 'Fichier de l\'image'
             ]);
     }

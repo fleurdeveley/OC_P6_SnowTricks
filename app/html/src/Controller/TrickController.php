@@ -121,8 +121,6 @@ class TrickController extends AbstractController
 
         $formView = $form->createView();
 
-        $formView = $form->createView();
-
         return $this->render('trick/edit.html.twig', [
             'trick' => $trick,
             'formView' => $formView
