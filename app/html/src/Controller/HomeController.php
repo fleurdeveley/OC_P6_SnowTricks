@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
+     * Display the home page
+     * 
      * @Route("/", name="homepage")
      */
     public function homepage(TrickRepository $trickRepository)
@@ -21,6 +23,8 @@ class HomeController extends AbstractController
     }
 
     /**
+     * To load the next 5 tricks
+     * 
      * @Route("/loadmoretricks/{start}", name="loadmoretricks", requirements={"start": "\d+"})
      */
     public function loadMoreTricks(TrickRepository $trickRepository, $start = 5)
