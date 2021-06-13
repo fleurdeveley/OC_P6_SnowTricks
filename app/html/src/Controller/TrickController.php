@@ -2,24 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Entity\Picture;
 use App\Entity\Trick;
-use App\Entity\Video;
 use App\Form\TrickType;
-use App\Repository\CategoryRepository;
-use App\Repository\PictureRepository;
 use App\Repository\TrickRepository;
-use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
