@@ -7,23 +7,25 @@
 
 {% block body %}
 
-{# Détails d'un trick #}
-	<div class="row">
+	{# Détails d'un trick #}
+	<div class="row mx-1">
 		<div class="col-12">
 			<div class="d-flex justify-content-end" id="trick">
 				<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
 					<i class="fas fa-pencil-alt"></i>
 				</a>
 
-				<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" data-bs-target="#modal-{{ trick.id }}">
-  					<i class="fas fa-trash-alt"></i>
+				<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" 
+				data-bs-target="#modal-{{ trick.id }}">
+					<i class="fas fa-trash-alt"></i>
 				</button>
 			</div>
 
 			{% include 'trick/delete.html.twig' %}
 
 			<div class="card" id="trick">
-				<img src="{{ trick.firstPicture.src }}" class="card-img-top img-fluid" alt="{{ trick.name }}">
+				<img src="{{ trick.firstPicture.src }}" class="card-img-top img-fluid" 
+				alt="{{ trick.name }}">
 
 				<div class="card-img-overlay">
 					<div class="text-center">
@@ -38,17 +40,19 @@
 
 								{% for picture in trick.pictures %}
 									<div class="m-1">
-										<img src="{{ picture.src }}" class="picture img-responsive" alt="{{picture.name}}">
+										<img src="{{ picture.src }}" class="picture img-responsive" 
+										alt="{{picture.name}}">
 									</div>
 								{% endfor %}
 
 								{% for video in trick.videos %}
 									<div class="m-1">
-										<iframe class="iframe" src="{{ video.src }}" title="YouTube video player" frameborder="0" 
+										<iframe class="iframe" src="{{ video.src }}" 
+										title="YouTube video player" frameborder="0" 
 										allow="accelerometer; autoplay; clipboard-write;
-											encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										encrypted-media; gyroscope; picture-in-picture" 
+										allowfullscreen></iframe>
 									</div>
-
 								{% endfor %}
 							</div>
 						</div>
@@ -63,6 +67,7 @@
 								Catégorie :
 								{{ trick.category.name }}</span>
 						</h5>
+
 						<h5>
 							<span class="badge bg-perso3 text-white">
 								<i class="far fa-user"></i>
@@ -72,26 +77,92 @@
 						<h5>
 							<span class="badge bg-perso3 text-white">
 								<i class="far fa-calendar-alt"></i>
-								Publié le {{ trick.createdAt | date("d/m/Y") }}
-								à {{ trick.createdAt | date('H:i') }}
+								Publié le
+								{{ trick.createdAt | date("d/m/Y") }}
+								à
+								{{ trick.createdAt | date('H:i') }}
 							</span>
 						</h5>
+
 						<h5>
 							<span class="badge bg-perso3 text-white">
 								<i class="far fa-calendar-alt"></i>
-								Modifié le {{ trick.updatedAt | date("d/m/Y") }}
-								à {{ trick.updatedAt | date('H:i') }}
+								Modifié le
+								{{ trick.updatedAt | date("d/m/Y") }}
+								à
+								{{ trick.updatedAt | date('H:i') }}
 							</span>
 						</h5>
 					</div>
-
 				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="row mx-3 pt-2 border">
+			<div class="text-center color-perso2">
+				<h5>Veuillez vous connecter pour laisser un commentaire.</h5>
 			</div>
 
+			{{ form_start(formView, {'attr': { 'novalidate': 'novalidate'}}) }}
+
+			<div class="row">
+				<div class="col">
+					{{ form_row(formView.content) }}
+				</div>
+			</div>
+
+			<div class="text-center">
+				<button type="submit" class="btn text-white bg-perso2 mb-3">
+					Ajouter votre commentaire
+				</button>
+			</div>
+
+			{{ form_end(formView) }}
+	</div>
+
+	<div class="row mx-3 pt-2 border">
+		<div id="comments">
+			{% include "trick/comment.html.twig" %}
 		</div>
 
+		<div class="text-center mt-3 mb-3">
+			<button type="button" class="btn text-white bg-perso2" id="loadmorecomments">
+				Afficher plus de commentaires
+			</button>
+		</div>
 	</div>
+
 {% endblock %}
 
-{% block javascript %}{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		var click = 0;
+
+		function loadMoreComments(event) {
+			event.preventDefault();
+			click++;
+			var start = 5 * click;
+			const url = "{{ path('loadmorecomments', {'slug': trick.slug}) }}/" + start;
+
+			axios.get(url).then(function (response) {
+				console.log(response);
+				var comments = document.getElementById('comments');
+				comments.insertAdjacentHTML('beforeend', response.data);
+
+			}).catch(function (error) {
+				if (response.status === 403) {
+					console.log("Vous n'êtes pas autorisé à effectuer cette action !");
+				} else if (response.status === 404) {
+					console.log("La page appelé n'existe pas");
+				} else {
+					console.log("Une erreur est survenue !");
+				}
+			});
+		}
+
+		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
+	</script>
+{% endblock %}

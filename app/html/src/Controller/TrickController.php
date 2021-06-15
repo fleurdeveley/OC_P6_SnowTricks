@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +22,8 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks/details/{slug}", name="trick")
      */
-    public function trick($slug, TrickRepository $trickRepository)
+    public function trick($slug, TrickRepository $trickRepository, 
+    EntityManagerInterface $em, Request $request)
     {
         $trick = $trickRepository->findOneBy([
             'slug' => $slug
@@ -29,15 +33,34 @@ class TrickController extends AbstractController
             throw $this->createNotFoundException("La figure demandée n'existe pas.");
         }
 
+        $comment = new Comment;
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTrick($trick);
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setUpdatedAt($comment->getCreatedAt());
+
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        $formView = $form->createView();
+
         return $this->render('trick/trick.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'formView' => $formView,
+            'start' => 0
         ]);
     }
 
     /**
      * @Route("/admin/trick/create", name="trick_create")
      */
-    public function create(Request $request, SluggerInterface $slugger,EntityManagerInterface $em) 
+    public function create(Request $request, SluggerInterface $slugger, EntityManagerInterface $em) 
     {
         $trick = new Trick;
 
@@ -112,6 +135,22 @@ class TrickController extends AbstractController
         return $this->render('trick/edit.html.twig', [
             'trick' => $trick,
             'formView' => $formView
+        ]);
+    }
+
+    /**
+     * To load the next 5 comments
+     * 
+     * @Route("/loadmorecomments/{slug}/{start}", name="loadmorecomments", 
+     * requirements={"start": "\d+"})
+     */
+    public function loadMoreComments(TrickRepository $trickRepository, $slug, $start = 5)
+    {
+        $trick = $trickRepository->findOneBySlug($slug);
+
+        return $this->render('trick/comment.html.twig', [
+            'trick' => $trick,
+            'start' => $start
         ]);
     }
 }
