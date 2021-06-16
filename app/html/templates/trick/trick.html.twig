@@ -100,25 +100,29 @@
 	</div>
 
 	<div class="row mx-3 pt-2 border">
-			<div class="text-center color-perso2">
-				<h5>Veuillez vous connecter pour laisser un commentaire.</h5>
-			</div>
+		<div class="text-center color-perso2">
+			<h5>Veuillez vous connecter pour laisser un commentaire.</h5>
+		</div>
 
-			{{ form_start(formView, {'attr': { 'novalidate': 'novalidate'}}) }}
+		{{ form_start(formView, {'attr': { 'novalidate': 'novalidate'}}) }}
 
-			<div class="row">
-				<div class="col">
+		<div class="row align-items-center mt-3">
+			<div class="col">
+				<div class="form-group">
 					{{ form_row(formView.content) }}
 				</div>
 			</div>
 
-			<div class="text-center">
-				<button type="submit" class="btn text-white bg-perso2 mb-3">
-					Ajouter votre commentaire
-				</button>
+			<div class="col">
+				<div class="form-group">
+					<button type="submit" class="btn text-white bg-perso2 mb-3">
+						Ajouter votre commentaire
+					</button>
+				</div>
 			</div>
+		</div>
 
-			{{ form_end(formView) }}
+		{{ form_end(formView) }}
 	</div>
 
 	<div class="row mx-3 pt-2 border">
