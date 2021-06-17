@@ -5,31 +5,57 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\Picture;
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
     protected $slugger;
+    protected $encoder;
 
-    public function __construct(SluggerInterface $slugger)
+    public function __construct(SluggerInterface $slugger, UserPasswordEncoderInterface $encoder)
     {
         $this->slugger = $slugger;
+        $this->encoder = $encoder;
     }
 
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
 
         $categories = [];
         $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
         $tricksName = ['mute', 'nose grab', 'japan', 'slide', 'tail slide', '360°', '720°', '1080°', 'backside air', 'method air'];
         $pictures =  ['/img/snowtrick1.jpg', '/img/snowtrick2.jpg', '/img/snowtrick3.jpg', '/img/snowtrick4.jpg', '/img/snowtrick5.jpg'];
         $videos = ['https://www.youtube.com/embed/SFYYzy0UF-8', 'https://www.youtube.com/embed/FuZc3fTmUnc'];
+
+        // admin
+        $admin = new User;
+
+        $admin->setEmail('admin@gmail.com')
+            ->setPassword('password')
+            ->setFullName('Admin')
+            ->setAvatar('https://randomuser.me')
+            ->setRoles(['ROLES_ADMIN']);
+
+        $manager->persist($admin);
+
+        // 5 users
+        for($u = 0; $u < 5; $u++) {
+            $user = new User();
+
+            $user->setEmail("user$u@gmail.com")
+                ->setPassword('password')
+                ->setFullName($faker->name())
+                ->setAvatar('https://randomuser.me');
+
+            $manager->persist($user);
+        }
 
         // 4 categories
         foreach($categoriesName as $categoryName) {
