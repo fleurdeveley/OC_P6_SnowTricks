@@ -23,6 +23,7 @@
         "symfony/maker-bundle": "^1.31",
         "symfony/monolog-bundle": "^3.0",
         "symfony/proxy-manager-bridge": "5.3.*",
+        "symfony/security-bundle": "5.3.*",
         "symfony/stopwatch": "5.3.*",
         "symfony/string": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
