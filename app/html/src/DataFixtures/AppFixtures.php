@@ -10,18 +10,18 @@ use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
     protected $slugger;
-    protected $encoder;
+    protected $hasher;
 
-    public function __construct(SluggerInterface $slugger, UserPasswordEncoderInterface $encoder)
+    public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $hasher)
     {
         $this->slugger = $slugger;
-        $this->encoder = $encoder;
+        $this->hasher = $hasher;
     }
 
     public function load(ObjectManager $manager)
@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
         $admin = new User;
 
         $admin->setEmail('admin@gmail.com')
-            ->setPassword('password')
+            ->setPassword($this->hasher->hashPassword($admin, 'password'))
             ->setFullName('Admin')
             ->setAvatar('https://randomuser.me')
             ->setRoles(['ROLES_ADMIN']);
@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
             $user = new User();
 
             $user->setEmail("user$u@gmail.com")
-                ->setPassword('password')
+                ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setFullName($faker->name())
                 ->setAvatar('https://randomuser.me');
 
