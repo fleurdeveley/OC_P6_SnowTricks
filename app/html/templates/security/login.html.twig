@@ -16,13 +16,6 @@
 					</div>
 				{% endif %}
 
-				{# {% if app.user %}
-					<div class="mb-3">
-						Vous êtes connecté en que {{ app.user.username }},
-						<a href="{{ path('app_logout') }}">Se déconnecter</a>
-					</div>
-				{% endif %} #}
-
                 <div class="form-group mb-3">
 				    <label for="inputEmail">Email de l'utilisateur</label>
 				    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" 
@@ -52,7 +45,7 @@
 				#}
 
                 <div class="text-center">
-                	<button type="submit" class="btn text-white bg-perso2 mb-3">
+                	<button type="submit" class="btn text-white bg-perso2">
 					    Se connecter
 				    </button>
                 </div>
