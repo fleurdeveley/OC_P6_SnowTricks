@@ -28,6 +28,7 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
+        $users = [];
         $categories = [];
         $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
         $tricksName = ['mute', 'nose grab', 'japan', 'slide', 'tail slide', '360°', '720°', '1080°', 'backside air', 'method air'];
@@ -55,6 +56,8 @@ class AppFixtures extends Fixture
                 ->setAvatar('https://randomuser.me');
 
             $manager->persist($user);
+            $users[] = $user;
+
         }
 
         // 4 categories
@@ -64,7 +67,7 @@ class AppFixtures extends Fixture
             $category->setName($categoryName);
 
             $manager->persist($category);
-            $categories [] = $category;
+            $categories[] = $category;
         }
 
         // 10 tricks
@@ -76,7 +79,8 @@ class AppFixtures extends Fixture
                 ->setSlug(strtolower($this->slugger->slug($trick->getName())))
                 ->setCreatedAt($faker->dateTime)
                 ->setUpdatedAt($faker->dateTime)
-                ->setCategory($category);
+                ->setCategory($faker->randomElement($categories))
+                ->setUser($faker->randomElement($users));
 
             $manager->persist($trick);
 
