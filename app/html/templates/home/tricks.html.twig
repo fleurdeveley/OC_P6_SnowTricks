@@ -8,14 +8,16 @@
 				{{ trick.name | upper }}
 			</a>
 
-			<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
-				<i class="fas fa-pencil-alt"></i>
-			</a>
+			{% if app.user %}
+				<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
+					<i class="fas fa-pencil-alt"></i>
+				</a>
 
-			<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" 
-            data-bs-target="#modal-{{ trick.id }}">
-				<i class="fas fa-trash-alt"></i>
-			</button>
+				<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" 
+            			data-bs-target="#modal-{{ trick.id }}">
+					<i class="fas fa-trash-alt"></i>
+				</button>
+			{% endif %}
 		</div>
 	</div>
 

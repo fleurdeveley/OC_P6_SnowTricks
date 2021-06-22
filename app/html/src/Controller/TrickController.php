@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Trick;
-use App\Form\CommentType;
+use App\Entity\Comment;
 use App\Form\TrickType;
-use App\Repository\CommentRepository;
+use App\Form\CommentType;
 use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
@@ -43,9 +44,15 @@ class TrickController extends AbstractController
             $comment->setTrick($trick);
             $comment->setCreatedAt(new \DateTime());
             $comment->setUpdatedAt($comment->getCreatedAt());
+            $comment->setUser($this->getUser());
 
             $em->persist($comment);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre commentaire a bien été enregistré !'
+            );
         }
 
         $formView = $form->createView();
@@ -58,7 +65,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/trick/create", name="trick_create")
+     * @Route("/trick/create", name="trick_create")
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request, SluggerInterface $slugger, EntityManagerInterface $em) 
     {
@@ -86,6 +94,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/delete/{slug}", name="trick_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function delete($slug, TrickRepository $trick): Response
     {
@@ -110,7 +119,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/admin/trick/{slug}/edit", name="trick_edit")
+     * @Route("/trick/{slug}/edit", name="trick_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function edit($slug, TrickRepository $trickRepository, Request $request, 
     EntityManagerInterface $em, ValidatorInterface $validator) 
