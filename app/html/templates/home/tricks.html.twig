@@ -1,7 +1,12 @@
 {% for trick in tricks %}
 	<div class="card mt-3 mb-3">
-		<img src="{{ trick.firstPicture.src }}" class="img-fluid" alt="{{ trick.name }}" 
-        style="max-width: 250px">
+		<img src= {% if trick.firstPicture %}
+				  	"{{ trick.firstPicture.src }}"
+				  {% else %}
+					"/img/defaultPicture.jpg"	
+				  {% endif %} 
+				  class="card-img-top img-fluid" alt="{{ trick.name }}"
+				  style="max-width: 250px">
 
 		<div class="card-body d-inline">
 			<a href="{{ path('trick', {'slug': trick.slug}) }}" class="card-link fw-bold">

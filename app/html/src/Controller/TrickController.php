@@ -80,9 +80,15 @@ class TrickController extends AbstractController
             $trick->setCreatedAt(new \DateTime());
             $trick->setUpdatedAt($trick->getCreatedAt());
             $trick->setSlug(strtolower($slugger->slug($trick->getName())));
+            $trick->setUser($this->getUser());
 
             $em->persist($trick);
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre figure a bien été enregistrée !'
+            );
         }
 
         $formView = $form->createView();

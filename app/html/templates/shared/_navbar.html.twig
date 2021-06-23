@@ -12,37 +12,38 @@
 		<ul class="navbar-nav ms-auto">
 			<li class="nav-item">
 				<a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">
-					<i class="fas fa-home"></i>
-					Accueil
+					<i class="fas fa-home"> Accueil</i>
 				</a>
 			</li>
 
 			<li class="nav-item">
-					<a class="nav-link" href="/#tricks">
-						<i class="fas fa-snowboarding"></i>
-						Figures
-					</a>
+				<a class="nav-link" href="/#tricks">
+					<i class="fas fa-snowboarding"> Figures</i>
+				</a>
 			</li>
 
 			{% if app.user %}
 				<li class="nav-item">	
+					<a class="nav-link" href="{{ path('trick_create') }}">
+						<i class="fas fa-plus"> Créer une figure</i>
+					</a>
+				</li>	
+
+				<li class="nav-item">	
 					<a class="nav-link" href="/logout">
-						<i class="fas fa-sign-out-alt"></i>
-						Se déconnecter
+						<i class="fas fa-sign-out-alt"> Se déconnecter</i>
 					</a>
 				</li>	
 			{% else %}
 				<li class="nav-item">
 					<a class="nav-link" href="/login">
-					<i class="fas fa-sign-in-alt"></i>
-					Se connecter
+						<i class="fas fa-sign-in-alt"> Se connecter</i>
 					</a>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link" href="#">
-						<i class="fas fa-user-plus"></i>
-						S'inscrire
+						<i class="fas fa-user-plus"> S'inscrire'</i>
 					</a>
 				</li>	
 			{% endif %}

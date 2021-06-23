@@ -23,8 +23,12 @@
 			{% endif %}
 
 			<div class="card" id="trick">
-				<img src="{{ trick.firstPicture.src }}" class="card-img-top img-fluid" 
-					 alt="{{ trick.name }}">
+				<img src= {% if trick.firstPicture %}
+							"{{ trick.firstPicture.src }}"
+						  {% else %}
+							"/img/defaultPicture.jpg"	
+						  {% endif %} 
+						  class="card-img-top img-fluid" alt="{{ trick.name }}">
 
 				<div class="card-img-overlay">
 					<div class="text-center">
