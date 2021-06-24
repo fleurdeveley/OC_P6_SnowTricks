@@ -17,6 +17,12 @@
 					{{ form_row(formView.name) }}
 					{{ form_row(formView.content) }}
 					{{ form_row(formView.category) }}
+
+					{{ form_row(formView.pictures) }}
+					<button id='add-pictures' data-list-selector='#trick_pictures'>Ajouter une image</button>
+					
+					{{ form_row(formView.videos) }}
+					<button id='add-videos' data-list-selector='#trick_videos'>Ajouter une video</button>
 				</div>
 			</div>
 
@@ -30,4 +36,49 @@
 			
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		function addPictures(event) {
+			event.preventDefault();
+			var list = document.getElementById("trick_pictures");
+			var counter = list.childElementCount;
+
+			var newWidget = list.getAttribute('data-prototype');
+
+			newWidget = newWidget.replace(/__name__label__/g, '');
+			newWidget = newWidget.replace(/__name__/g, counter);
+			counter++;
+			var newElem = document.createElement('div');
+			newElem.innerHTML = newWidget;
+			var hr = document.createElement('hr');
+			list.append(hr);
+			list.append(newElem);
+		}
+
+		function addVideos(event) {
+			event.preventDefault();
+			var list = document.getElementById("trick_videos");
+			var counter = list.childElementCount;
+
+			var newWidget = list.getAttribute('data-prototype');
+
+			newWidget = newWidget.replace(/__name__label__/g, '');
+			newWidget = newWidget.replace(/__name__/g, counter);
+			counter++;
+			var newElem = document.createElement('div');
+			newElem.innerHTML = newWidget;
+			var hr = document.createElement('hr');
+			list.append(hr);
+			list.append(newElem);
+		}
+
+		document.getElementById("add-pictures").addEventListener("click", addPictures);
+		document.getElementById("add-videos").addEventListener("click", addVideos);
+
+
+	</script>
 {% endblock %}

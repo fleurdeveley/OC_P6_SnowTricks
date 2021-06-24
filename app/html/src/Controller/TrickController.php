@@ -77,6 +77,21 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach($trick->getPictures() as $picture) {
+                $file = $picture->getFile();
+                $file->move('../public/img', $file->getClientOriginalName());
+                $picture->setSrc('/img/' . $file->getClientOriginalName());
+                $picture->setTrick($trick);
+
+                $em->persist($picture);
+            }
+
+            foreach($trick->getvideos() as $video) {
+                $video->setTrick($trick);
+                $em->persist($video);
+            }
+
             $trick->setCreatedAt(new \DateTime());
             $trick->setUpdatedAt($trick->getCreatedAt());
             $trick->setSlug(strtolower($slugger->slug($trick->getName())));
@@ -89,6 +104,8 @@ class TrickController extends AbstractController
                 'success',
                 'Votre figure a bien été enregistrée !'
             );
+
+            return $this->redirectToRoute('homepage');            
         }
 
         $formView = $form->createView();
