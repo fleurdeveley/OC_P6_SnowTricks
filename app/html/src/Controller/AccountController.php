@@ -35,7 +35,7 @@ class AccountController extends AbstractController
             $em->persist($user);
             $em->flush();
             
-            return $this->redirectToRoute('security_login');
+            return $this->redirectToRoute('homepage');
         }
 
         $formView = $form->createView();
