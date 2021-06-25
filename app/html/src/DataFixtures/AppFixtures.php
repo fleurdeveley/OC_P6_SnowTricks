@@ -34,6 +34,7 @@ class AppFixtures extends Fixture
         $tricksName = ['mute', 'nose grab', 'japan', 'slide', 'tail slide', '360°', '720°', '1080°', 'backside air', 'method air'];
         $pictures =  ['/img/snowtrick1.jpg', '/img/snowtrick2.jpg', '/img/snowtrick3.jpg', '/img/snowtrick4.jpg', '/img/snowtrick5.jpg'];
         $videos = ['https://www.youtube.com/embed/SFYYzy0UF-8', 'https://www.youtube.com/embed/FuZc3fTmUnc'];
+        $avatar = ['/img/defaultAvatar.png'];
 
         // admin
         $admin = new User;
@@ -41,7 +42,7 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@gmail.com')
             ->setPassword($this->hasher->hashPassword($admin, 'password'))
             ->setFullName('Admin')
-            ->setAvatar('https://randomuser.me')
+            ->setAvatar($faker->randomElement($avatar))
             ->setRoles(['ROLES_ADMIN']);
 
         $manager->persist($admin);
@@ -53,11 +54,11 @@ class AppFixtures extends Fixture
             $user->setEmail("user$u@gmail.com")
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setFullName($faker->name())
-                ->setAvatar('https://randomuser.me');
+                ->setAvatar($faker->randomElement($avatar))
+                ->setRoles(['ROLES_USER']);
 
             $manager->persist($user);
             $users[] = $user;
-
         }
 
         // 4 categories

@@ -109,3 +109,8 @@ a {
 .iframe {
     height: 200px;
 }
+
+/* formatting image */
+.avatar {
+    width: 40px;
+}

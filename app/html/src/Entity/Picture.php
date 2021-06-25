@@ -25,6 +25,7 @@ class Picture
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner un email valide")
      */
     private $src;
 
