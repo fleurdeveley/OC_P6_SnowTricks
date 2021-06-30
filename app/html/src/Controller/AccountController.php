@@ -54,7 +54,6 @@ class AccountController extends AbstractController
                 ->subject("Validation de votre compte SnowTricks.")
                 ->htmlTemplate('emails/validation.html.twig')
                 ->context([
-                    'token' => $user->getActivated(),
                     'user' => $user
                 ]);
             
@@ -77,7 +76,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Validation de l'email après une inscription
+     * Email validation after registration
      *
      * @Route("/email-validation/{email}/{token}", name="email_validation")
      */
