@@ -124,14 +124,6 @@
 				<h5>Veuillez vous connecter pour laisser un commentaire.</h5>
 			</div>
 		{% endif %}
-
-		        {% for label, messages in app.flashes %}
-                <div class="alert alert-{{ label }}">
-                    {% for message in messages %}
-                        <p>{{ message | raw }}</p>
-                    {% endfor %}
-            </div>
-        {% endfor %}
 	</div>
 
 	{% if app.user %}
