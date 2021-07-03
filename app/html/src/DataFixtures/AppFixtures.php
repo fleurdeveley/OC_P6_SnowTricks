@@ -43,7 +43,9 @@ class AppFixtures extends Fixture
             ->setPassword($this->hasher->hashPassword($admin, 'password'))
             ->setFullName('Admin')
             ->setAvatar($faker->randomElement($avatar))
-            ->setRoles(['ROLES_ADMIN']);
+            ->setRoles(['ROLES_ADMIN'])
+            ->setToken(md5(random_bytes(10)))
+            ->setActivated(true);
 
         $manager->persist($admin);
 
@@ -55,7 +57,9 @@ class AppFixtures extends Fixture
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setFullName($faker->name())
                 ->setAvatar($faker->randomElement($avatar))
-                ->setRoles(['ROLES_USER']);
+                ->setRoles(['ROLES_USER'])
+                ->setToken(md5(random_bytes(10)))
+                ->setActivated(true);
 
             $manager->persist($user);
             $users[] = $user;
