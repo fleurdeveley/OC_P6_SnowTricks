@@ -19,15 +19,12 @@ class RegisterType extends AbstractType
             ->add('fullName', TextType::class, [
                 'label' => 'Prénom et Nom',
             ])
-
             ->add('email', EmailType::class, [
                 'label' => 'Email',
             ])
-            
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
             ])
-
             ->add('avatar', FileType::class, [
                 'label' => 'Fichier de l\'avatar'
             ]);
