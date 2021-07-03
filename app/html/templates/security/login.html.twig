@@ -4,7 +4,7 @@
 
 {% block body %}
 	<div class="row justify-content-center">
-		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 bg-light mt-2 mb-2 p-4 border border-dark">
+		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 bg-light my-5 p-5 border border-dark">
 			<form method="post">
             	<div class="text-center color-perso2">
 				    <h3>Connexion</h3>
@@ -44,11 +44,14 @@
 				    </div>
 				#}
 
-                <div class="text-center">
+                <div class="text-center">            	
+					<a href="{{ path('account_forgot_password') }}">Mot de passe oublié</a> 
+					<br> <br>
                 	<button type="submit" class="btn text-white bg-perso2">
 					    Se connecter
 				    </button>
                 </div>
+				<br>
 			</form>
 		</div>
 	</div>
