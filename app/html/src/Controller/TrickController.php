@@ -155,6 +155,24 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            foreach($trick->getPictures() as $picture) {
+                $file = $picture->getFile();
+
+                if($file !== null) {
+                    $file->move('../public/img', $file->getClientOriginalName());
+                    $picture->setSrc('/img/' . $file->getClientOriginalName());
+                    $picture->setTrick($trick);
+                }
+
+                $em->persist($picture);
+            }
+
+            foreach($trick->getvideos() as $video) {
+                $video->setTrick($trick);
+                $em->persist($video);
+            }
+
             $trick->setUpdatedAt(new \DateTime());
             $em->flush();
 
