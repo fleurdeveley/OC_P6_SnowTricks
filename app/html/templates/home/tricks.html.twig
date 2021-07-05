@@ -3,7 +3,7 @@
 		<img src= {% if trick.firstPicture %}
 				  	"{{ trick.firstPicture.src }}"
 				  {% else %}
-					"/img/defaultPicture.jpg"	
+					"{{ asset('/img/defaultPicture.jpg') }}"	
 				  {% endif %} 
 				  class="card-img-top img-fluid" alt="{{ trick.name }}"
 				  style="max-width: 250px">
