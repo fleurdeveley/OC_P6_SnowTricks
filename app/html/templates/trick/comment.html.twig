@@ -5,7 +5,7 @@
 				<img src= {% if comment.user.avatar %}
 							"{{ comment.user.avatar }}"
 						  {% else %}
-							"/img/defaultPicture.jpg"	
+							"{{ asset('/img/defaultPicture.jpg') }}"	
 						  {% endif %} 
 						  class="card-img-top img-fluid avatar" alt="{{ comment.user.avatar }}">
 				
