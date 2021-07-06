@@ -119,23 +119,22 @@ class TrickController extends AbstractController
      * @Route("/trick/delete/{slug}", name="trick_delete")
      * @IsGranted("ROLE_USER")
      */
-    public function delete($slug, TrickRepository $trick): Response
+    public function delete($slug, TrickRepository $trick, EntityManagerInterface $em): Response
     {
         $trick = $trick->findOneBySlug($slug);
 
         $fileSystem = new Filesystem();
 
         foreach ($trick->getPictures() as $picture) {
-            $fileSystem->remove($picture->getPath() . '/' . $picture->getName());
+            $fileSystem->remove($picture->getSrc() . '/' . $picture->getName());
         }
 
-        $em = $this->getDoctrine->getManager();
         $em->remove($trick);
         $em->flush();
 
         $this->addflash(
             'success',
-            "La figure <strong>{{ $trick->getName() }}</strong> a bien été supprimée."
+            "La figure a bien été supprimée."
         );
 
         return $this->redirectToRoute('homepage');
