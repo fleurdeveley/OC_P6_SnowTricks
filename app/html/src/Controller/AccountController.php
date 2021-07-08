@@ -3,17 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\PasswordForgotType;
-use App\Form\PasswordResetType;
 use App\Form\RegisterType;
 use App\Repository\UserRepository;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
@@ -186,7 +184,7 @@ class AccountController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    "Votre mot de passe est modifié avec succés!"
+                    "Votre mot de passe est modifié avec succés !"
                 );
 
                 return $this->redirectToRoute('security_login');

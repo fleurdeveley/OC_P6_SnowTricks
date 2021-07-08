@@ -6,7 +6,7 @@
 	{# Trick details #}
 	
 	<div class="row mx-1">
-		<div class="col-12">
+		<div class="col">
 			{% if app.user %}
 				<div class="d-flex justify-content-end" id="trick">
 					<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
@@ -39,18 +39,18 @@
 				<div class="card-body">
 					<div class="container">
 						<div class="row">
-							<div class="d-flex justify-content-start flex-wrap mb-3">
+							<div class="d-flex flex-wrap justify-content-start mb-3">
 
 								{% for picture in trick.pictures %}
-									<div class="m-1">
-										<img src="{{ picture.src }}" class="picture img-responsive" 
+									<div class="pictures m-1">
+										<img src="{{ picture.src }}" class="picture img-fluid" 
 											 alt="{{picture.name}}">
 									</div>
 								{% endfor %}
 
 								{% for video in trick.videos %}
-									<div class="m-1">
-										<iframe class="iframe" src="{{ video.src }}" 
+									<div class="videos embed-responsive embed-responsive-4by3 m-1">
+										<iframe class="embed-responsive-item" src="{{ video.src }}" 
 										title="YouTube video player" frameborder="0" 
 										allow="accelerometer; autoplay; clipboard-write;
 										encrypted-media; gyroscope; picture-in-picture" 
@@ -63,7 +63,7 @@
 
 					<p class="card-text mb-4">{{ trick.content }}</p>
 
-					<div class="d-flex justify-content-evenly">
+					<div class="d-flex flex-wrap justify-content-md-evenly">
 						<h5>
 							<span class="badge bg-perso3 text-white">
 								<i class="fas fa-snowboarding"></i>
@@ -103,14 +103,14 @@
 				{{ form_start(formView, {'attr': { 'novalidate': 'novalidate'}}) }}
 
 		<div class="row align-items-center mt-3">
-			<div class="col">
-				<div class="form-group">
+			<div class="offset-1 col">
+				<div class="form-group text-center">
 					{{ form_row(formView.content) }}
 				</div>
 			</div>
 
 			<div class="col">
-				<div class="form-group">
+				<div class="form-group text-center">
 					<button type="submit" class="btn text-white bg-perso2 mb-3">
 						Ajouter votre commentaire
 					</button>

@@ -75,11 +75,11 @@ a {
   outline: none;
   text-decoration: none;
   padding: 2px 1px 0;
-  color: #2d4250;
+  color: #2d4250 !important;
 }
   
 a:hover {
-  color: #7e4626;
+  color: #7e4626 !important;
  }
 
 /* formatting trick */
