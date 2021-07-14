@@ -102,6 +102,10 @@ a:hover {
   padding: 0 10px;
 }
 
+#trick .card-body{
+  z-index: 1000;
+}
+
 .picture {
   height: 200px;
 }
