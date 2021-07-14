@@ -68,7 +68,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): ?User
+    public function getUser($credentials): ?User
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
@@ -82,7 +82,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email introuvable.');
+            throw new CustomUserMessageAuthenticationException("L'email n'existe pas ou le compte 
+            n'est pas actif.");
         }
 
         return $user;
@@ -104,7 +105,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-        $email = $request->request->get('email', '');
+        $credentials = $this->getCredentials($request);
+
+        $user = $this->getUser($credentials);
+
+        $email = $user->getEmail();
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
