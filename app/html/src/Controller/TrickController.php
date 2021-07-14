@@ -145,7 +145,7 @@ class TrickController extends AbstractController
      * @IsGranted("ROLE_USER")
      */
     public function edit($slug, TrickRepository $trickRepository, Request $request, 
-    EntityManagerInterface $em, ValidatorInterface $validator) 
+    EntityManagerInterface $em) 
     {
         $trick = $trickRepository->findOneBySlug($slug);
 
