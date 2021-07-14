@@ -77,10 +77,10 @@ a {
   padding: 2px 1px 0;
   color: #2d4250 !important;
 }
-  
+ 
 a:hover {
   color: #7e4626 !important;
- }
+}
 
 /* formatting trick */
 .card-img-overlay {
@@ -93,7 +93,7 @@ a:hover {
   font-size: 30px !important;
   text-shadow: #2d4250 0.1em 0.1em 0.1em;
   height: 100vh;
-  margin-top: 250px;  
+  margin-top: 250px;
 }
 
 #trick a,
@@ -102,7 +102,7 @@ a:hover {
   padding: 0 10px;
 }
 
-#trick .card-body{
+#trick .card-body {
   z-index: 1000;
 }
 
