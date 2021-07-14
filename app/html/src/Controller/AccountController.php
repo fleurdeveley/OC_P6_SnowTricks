@@ -38,7 +38,14 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $user->setAvatar('img/defaultAvatar.png');
+            $file = $form['avatar']->getData();
+            if($file !== null) {
+                $file->move('../public/img', $file->getClientOriginalName());
+                $user->setAvatar('/img/' . $file->getClientOriginalName());
+            } else {
+                $user->setAvatar('img/defaultAvatar.png');
+            }
+            
             $user->setPassword($hasher->hashPassword($user, 
                    $request->request->get('register')['password']));
             $user->setRoles(['ROLES_USER']);
