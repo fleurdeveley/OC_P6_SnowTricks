@@ -57,19 +57,19 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $pictures;
 
     private $firstPicture;
     
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $comments;
 
