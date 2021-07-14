@@ -60,8 +60,6 @@ class Trick
      * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $pictures;
-
-    private $firstPicture;
     
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
@@ -196,7 +194,7 @@ class Trick
     public function getFirstPicture()
     {
         if(count($this->getPictures()) > 0) {
-            return $pictures = $this->getPictures()[0];
+            return $this->getPictures()[0];
         } 
 
         return null;
