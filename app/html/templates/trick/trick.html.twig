@@ -50,9 +50,10 @@
 
 								{% for video in trick.videos %}
 									<div class="videos embed-responsive embed-responsive-4by3 m-1">
-										<iframe class="embed-responsive-item" src="{{ video.src }}" 
-										title="YouTube video player" frameborder="0" 
-										allow="accelerometer; autoplay; clipboard-write;
+										<iframe width="250" height="180" 
+										class="embed-responsive-item" src="{{ video.src }}" 
+										title="{{ video.name }}" frameborder="0" 
+										allow="accelerometer; autoplay; clipboard-write; 
 										encrypted-media; gyroscope; picture-in-picture" 
 										allowfullscreen></iframe>
 									</div>
