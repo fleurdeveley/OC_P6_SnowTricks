@@ -1,0 +1,23 @@
+{% for comment in trick.comments | slice(start, start + 5) %}
+	<div class="row mx-auto">
+		<div class="col-md-10 col-12 mx-auto row">
+			<span class="border p-2 m-2">
+				<img src= {% if comment.user.avatar %}
+							"{{ comment.user.avatar }}"
+						  {% else %}
+							"{{ asset('/img/defaultPicture.jpg') }}"	
+						  {% endif %} 
+						  class="card-img-top img-fluid avatar" alt="{{ comment.user.avatar }}">
+				
+				<strong>{{ comment.user.fullName }} </strong>
+				<small class="text-muted">
+					publié le {{ trick.createdAt | date("d/m/Y") }}
+					à {{ trick.createdAt | date('H:i') }}
+				</small>
+				
+				<br> <br>
+				{{ comment.content }}
+			</span>
+		</div>
+	</div>
+{% endfor %}

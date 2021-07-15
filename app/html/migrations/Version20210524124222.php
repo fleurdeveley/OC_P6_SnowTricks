@@ -23,7 +23,6 @@ final class Version20210524124222 extends AbstractMigration
         $this->addSql('ALTER TABLE trick ADD category_id INT NOT NULL');
         $this->addSql('ALTER TABLE trick ADD CONSTRAINT FK_D8F0A91E12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
         $this->addSql('CREATE INDEX IDX_D8F0A91E12469DE2 ON trick (category_id)');
-        $this->addSql('ALTER TABLE user CHANGE firstname firstname VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -32,6 +31,5 @@ final class Version20210524124222 extends AbstractMigration
         $this->addSql('ALTER TABLE trick DROP FOREIGN KEY FK_D8F0A91E12469DE2');
         $this->addSql('DROP INDEX IDX_D8F0A91E12469DE2 ON trick');
         $this->addSql('ALTER TABLE trick DROP category_id');
-        $this->addSql('ALTER TABLE user CHANGE firstname firstname VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

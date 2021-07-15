@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+
+{% block title %}SnowTricks - Accueil{% endblock %}
+
+{# image, title and catchphrase #}
+{% block header %}
+	<div class="jumbotron jumbotron-fluid" id="header">
+		<div class="container-fluid d-flex flex-column justify-content-center text-center color-perso2">
+			<h1 class="text-uppercase fw-bolder">snowtricks</h1>
+			<h4 class="fw-bolder">Site communautaire de figures de snowboard</h4>
+		</div>
+	</div>
+
+	<div class="header-arrow">
+		<a href="#tricks">
+			<i class="fas fa-arrow-down fa-2x color-perso2"></i>
+		</a>
+	</div>
+{% endblock %}
+
+{# list of tricks #}
+{% block body %}
+
+	<div class="container-fluid">
+		<div class="d-flex flex-wrap justify-content-md-between mb-3" id="tricks">
+			{% include 'home/tricks.html.twig' %}
+		</div>
+	</div>
+
+	<div class="text-center">
+		<button type="button" class="btn text-white bg-perso2 mb-3" id="loadmoretricks">
+			Afficher plus
+		</button>
+	</div>
+
+	<div class="container-fluid">
+		<div class="d-flex justify-content-end">
+			<a href="#tricks">
+				<i class="fas fa-arrow-up fa-2x color-perso2"></i>
+			</a>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		var click = 0;
+
+		function loadMoreTricks(event) {
+			event.preventDefault();
+			click ++;
+			var start = 5 * click;
+			const url = "{{ path('loadmoretricks') }}/" + start;
+
+			axios.get(url).then(function (response) {
+				console.log(response);
+				var tricks = document.getElementById('tricks');
+				tricks.insertAdjacentHTML('beforeend', response.data);
+
+			}).catch(function (error) {
+				if (response.status === 403) {
+					console.log("Vous n'êtes pas autorisé à effectuer cette action !");
+				} else if (response.status === 404) {
+					console.log("La page appelé n'existe pas");
+				} else {
+					console.log("Une erreur est survenue !");
+				}
+			});
+		}
+
+		document.getElementById("loadmoretricks").addEventListener("click", loadMoreTricks);
+	</script>
+{% endblock %}

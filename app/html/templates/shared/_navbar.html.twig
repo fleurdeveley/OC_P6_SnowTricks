@@ -1,20 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<div class="collapse navbar-collapse" id="navbarColor03">
-			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="#">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
+	<a class="navbar-brand py-0" href="{{ path('homepage') }}">
+		<img src="{{ asset('/img/logo.png') }}" alt="SnowTricks logo" width="50" height="50">
+		SnowTricks
+	</a>
+
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="mainNavbar">
+		<ul class="navbar-nav ms-auto">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">
+					<i class="fas fa-home"> Accueil</i>
+				</a>
+			</li>
+
+			<li class="nav-item">
+				<a class="nav-link" href="/#tricks">
+					<i class="fas fa-snowboarding"> Figures</i>
+				</a>
+			</li>
+
+			{% if app.user %}
+				<li class="nav-item">	
+					<a class="nav-link" href="{{ path('trick_create') }}">
+						<i class="fas fa-plus"> Créer une figure</i>
+					</a>
 				</li>
+
+				<li class="nav-item">	
+					<a class="nav-link" href="/logout">
+						<i class="fas fa-sign-out-alt"> Se déconnecter</i>
+					</a>
+				</li>	
+			{% else %}
 				<li class="nav-item">
-					<a class="nav-link" href="#">Figures</a>
+					<a class="nav-link" href="/login">
+						<i class="fas fa-sign-in-alt"> Se connecter</i>
+					</a>
 				</li>
+
 				<li class="nav-item">
-					<a class="nav-link" href="#">Se connecter</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">S'inscrire</a>
-				</li>
-			</ul>
-		</div>
+					<a class="nav-link" href="{{ path('account_register') }}">
+						<i class="fas fa-user-plus"> S'inscrire</i>
+					</a>
+				</li>	
+			{% endif %}
+		</ul>
 	</div>
 </nav>

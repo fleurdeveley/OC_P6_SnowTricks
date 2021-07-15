@@ -1,0 +1,13 @@
+<p>
+    Bonjour {{ user.fullname }}.
+    <br> <br>
+    Une demande de réinitialisation de mot de passe a été demandé pour votre compte.
+    <br> <br>
+    Pour réinitilisation votre mot de passe, veuillez cliquer sur le lien ci-dessous :
+    <br>
+    <a href="{{ url('account_reset_password', {email: user.email, token: user.token}) }}">
+        Réinitialiser mon mot de passe
+    <a>
+    <br> <br>
+    Merci !
+</p>

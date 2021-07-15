@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(fields={"name"}, message="Ce nom est déjà utilisé.")
  */
 class Trick
 {
@@ -19,19 +23,22 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="Le nom  de la figure est obligatoire.")
+     * @Assert\Length(min=3, max=50, minMessage="Le nom de la figure doit avoir au moins 3 caractères.")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
-    private $content;
+    private $slug;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="La description de la figure est obligatoire.")
      */
-    private $main_picture;
+    private $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,7 +48,7 @@ class Trick
     /**
      * @ORM\Column(type="datetime")
      */
-    private $update_at;
+    private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
@@ -50,19 +57,36 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $pictures;
-
+    
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $videos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getName(): ?string
@@ -70,9 +94,21 @@ class Trick
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -82,21 +118,9 @@ class Trick
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getMainPicture(): ?string
-    {
-        return $this->main_picture;
-    }
-
-    public function setMainPicture(string $main_picture): self
-    {
-        $this->main_picture = $main_picture;
 
         return $this;
     }
@@ -113,14 +137,14 @@ class Trick
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(\DateTimeInterface $update_at): self
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -167,6 +191,15 @@ class Trick
         return $this;
     }
 
+    public function getFirstPicture()
+    {
+        if(count($this->getPictures()) > 0) {
+            return $this->getPictures()[0];
+        } 
+
+        return null;
+    }
+
     /**
      * @return Collection|Video[]
      */
@@ -193,6 +226,48 @@ class Trick
                 $video->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

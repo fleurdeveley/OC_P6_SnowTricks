@@ -1,0 +1,189 @@
+{% extends "base.html.twig" %}
+
+{% block title %}SnowTricks - {{ trick.name }}{% endblock %}
+
+{% block body %}
+	{# Trick details #}
+	
+	<div class="row mx-1">
+		<div class="col">
+			{% if app.user %}
+				<div class="d-flex justify-content-end" id="trick">
+					<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
+						<i class="fas fa-pencil-alt"></i>
+					</a>
+
+					<button type="button" class="btn bg-perso-2" data-bs-toggle="modal" 
+							data-bs-target="#modal-{{ trick.id }}">
+						<i class="fas fa-trash-alt"></i>
+					</button>
+				</div>
+
+				{% include 'trick/delete.html.twig' %}
+			{% endif %}
+
+			<div class="card" id="trick">
+				<img src= {% if trick.firstPicture %}
+							"{{ trick.firstPicture.src }}"
+						  {% else %}
+							"/img/defaultPicture.jpg"	
+						  {% endif %} 
+						  class="card-img-top img-fluid" alt="{{ trick.name }}">
+
+				<div class="card-img-overlay">
+					<div class="text-center">
+						<h4 class="card-title fw-bolder color-perso1">{{ trick.name | upper}}</h4>
+					</div>
+				</div>
+
+				<div class="card-body">
+					<div class="container">
+						<div class="row" id="trickMedia">
+							<div class="d-flex flex-wrap justify-content-evenly">
+
+								{% for picture in trick.pictures %}
+									<div class="pictures my-2">
+										<img src="{{ picture.src }}" class="picture img-fluid" 
+											 alt="{{picture.name}}">
+									</div>
+								{% endfor %}
+
+								{% for video in trick.videos %}
+									<div class="videos embed-responsive my-2">
+										<iframe   height="150px" width="100%"
+										class="embed-responsive-item" src="{{ video.src }}" 
+										title="{{ video.name }}" frameborder="0" 
+										allow="accelerometer; autoplay; clipboard-write; 
+										encrypted-media; gyroscope; picture-in-picture" 
+										allowfullscreen></iframe>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="text-center my-3" >
+        					<button type="button" id="seeMedia" class="btn text-white bg-perso2">
+								Voir les médias
+							</button>
+    					</div>
+					</div>
+
+					<p class="card-text mb-4">{{ trick.content }}</p>
+
+					<div class="d-flex flex-wrap justify-content-md-evenly">
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="fas fa-snowboarding"></i>
+								Catégorie : {{ trick.category.name }}
+							</span>
+						</h5>
+
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-user"></i>
+								Auteur : {{ trick.user.fullname }}
+							</span>
+						</h5>
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-calendar-alt"></i>
+								Publié le {{ trick.createdAt | date("d/m/Y") }}
+								à {{ trick.createdAt | date('H:i') }}
+							</span>
+						</h5>
+
+						<h5>
+							<span class="badge bg-perso3 text-white">
+								<i class="far fa-calendar-alt"></i>
+								Modifié le {{ trick.updatedAt | date("d/m/Y") }}
+								à {{ trick.updatedAt | date('H:i') }}
+							</span>
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mx-3 pt-2 border">
+		{% if app.user %}
+				{{ form_start(formView, {'attr': { 'novalidate': 'novalidate'}}) }}
+
+		<div class="row align-items-center mt-3">
+			<div class="offset-md-1 col-sm-12 col-md-6">
+				<div class="form-group text-center">
+					{{ form_row(formView.content) }}
+				</div>
+			</div>
+
+			<div class="offset-md-1 col-sm-12 col-md-3 offste-md-1">
+				<div class="form-group text-center">
+					<button type="submit" class="btn text-white bg-perso2 mb-3">
+						Ajouter votre commentaire
+					</button>
+				</div>
+			</div>
+		</div>
+
+		{{ form_end(formView) }}
+		{% else %}
+			<div class="text-center color-perso2">
+				<h5>Veuillez vous connecter pour laisser un commentaire.</h5>
+			</div>
+		{% endif %}
+	</div>
+
+	{% if app.user %}
+		<div class="row mx-3 pt-2 border">
+			<div id="comments">
+				{% include "trick/comment.html.twig" %}
+			</div>
+
+			<div class="text-center my-3">
+				<button type="button" class="btn text-white bg-perso2" id="loadmorecomments">
+					Afficher plus de commentaires
+				</button>
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		var click = 0;
+
+		function loadMoreComments(event) {
+			event.preventDefault();
+			click++;
+			var start = 5 * click;
+			const url = "{{ path('loadmorecomments', {'slug': trick.slug}) }}/" + start;
+
+			axios.get(url).then(function (response) {
+				console.log(response);
+				var comments = document.getElementById('comments');
+				comments.insertAdjacentHTML('beforeend', response.data);
+
+			}).catch(function (error) {
+				if (response.status === 403) {
+					console.log("Vous n'êtes pas autorisé à effectuer cette action !");
+				} else if (response.status === 404) {
+					console.log("La page appelé n'existe pas");
+				} else {
+					console.log("Une erreur est survenue !");
+				}
+			});
+		}
+
+		function seeMedia(event) {
+			event.preventDefault();
+			document.getElementById("trickMedia").style.display = "block";
+		}
+
+		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
+
+		document.getElementById("seeMedia").addEventListener("click", seeMedia);
+	</script>
+{% endblock %}
