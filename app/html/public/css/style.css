@@ -8,6 +8,22 @@ body {
   height: 0;
 }
 
+@media only screen and (max-width: 768px) { 
+	#trickMedia {
+		display: none;
+	}
+
+	#seeMedia {
+		display: block;
+	}
+}
+
+@media only screen and (min-width: 768px) { 
+	#seeMedia {
+		display: none;
+	}
+}
+
 /* background color palette */
 .bg-perso1 {
   background-color: #b7c8d5;
@@ -107,11 +123,7 @@ a:hover {
 }
 
 .picture {
-  height: 200px;
-}
-
-.iframe {
-  height: 200px;
+  height: 150px;
 }
 
 /* formatting image */

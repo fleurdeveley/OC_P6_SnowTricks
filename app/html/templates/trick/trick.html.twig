@@ -38,7 +38,7 @@
 
 				<div class="card-body">
 					<div class="container">
-						<div class="row">
+						<div class="row" id="trickMedia">
 							<div class="d-flex flex-wrap justify-content-start mb-3">
 
 								{% for picture in trick.pictures %}
@@ -49,8 +49,8 @@
 								{% endfor %}
 
 								{% for video in trick.videos %}
-									<div class="videos embed-responsive embed-responsive-4by3 m-1">
-										<iframe width="250" height="180" 
+									<div class="videos embed-responsive m-1">
+										<iframe   height="150px" width="174px"
 										class="embed-responsive-item" src="{{ video.src }}" 
 										title="{{ video.name }}" frameborder="0" 
 										allow="accelerometer; autoplay; clipboard-write; 
@@ -60,6 +60,12 @@
 								{% endfor %}
 							</div>
 						</div>
+
+						<div class="text-center my-3" >
+        					<button id="seeMedia" class="btn text-white bg-perso2">
+								Voir les médias
+							</button>
+    					</div>
 					</div>
 
 					<p class="card-text mb-4">{{ trick.content }}</p>
@@ -133,7 +139,7 @@
 				{% include "trick/comment.html.twig" %}
 			</div>
 
-			<div class="text-center mt-3 mb-3">
+			<div class="text-center my-3">
 				<button type="button" class="btn text-white bg-perso2" id="loadmorecomments">
 					Afficher plus de commentaires
 				</button>
@@ -171,6 +177,13 @@
 			});
 		}
 
+		function seeMedia(event) {
+			event.preventDefault();
+			document.getElementById("trickMedia").style.display = "block";
+		}
+
 		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
+
+		document.getElementById("seeMedia").addEventListener("click", seeMedia);
 	</script>
 {% endblock %}
