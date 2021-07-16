@@ -100,8 +100,8 @@ a.pencil {
   margin: auto 0;
 }
 
-a:hover, 
-.btn:hover {
+a:hover,
+.trash:hover {
   color: #7e4626 !important;
 }
 

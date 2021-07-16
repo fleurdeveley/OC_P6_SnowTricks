@@ -318,9 +318,7 @@ class AppFixtures extends Fixture
             '/img/snowtrick7.jpg',
             '/img/snowtrick8.jpg',
             '/img/snowtrick9.jpg',
-            '/img/snowtrick10.jpg',
-            '/img/snowtrick11.jpg',
-            '/img/snowtrick12.jpg'
+            '/img/snowtrick10.jpg'
         ];
 
         // 3 pictures by trick
