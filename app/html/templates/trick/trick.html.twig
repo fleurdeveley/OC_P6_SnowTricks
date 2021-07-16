@@ -9,7 +9,7 @@
 		<div class="col">
 			{% if app.user %}
 				<div class="d-flex justify-content-end" id="trick">
-					<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
+					<a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="pencil">
 						<i class="fas fa-pencil-alt"></i>
 					</a>
 

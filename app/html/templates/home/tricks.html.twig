@@ -6,7 +6,7 @@
 					"{{ asset('/img/defaultPicture.jpg') }}"	
 				  {% endif %} 
 				  class="card-img-top img-fluid" alt="{{ trick.name }}"
-				  style="max-width: 250px; max-height: 300px">
+				  style="max-width: 250px; max-height: 140px">
 
 		<div class="card-body d-inline text-center">
 			<a href="{{ path('trick', {'slug': trick.slug}) }}" class="card-link fw-bold">
@@ -14,7 +14,7 @@
 			</a>
 
 			{% if app.user %}
-				<a href="{{ path('trick_edit', {'slug': trick.slug}) }}">
+				<a href="{{ path('trick_edit', {'slug': trick.slug}) }} class"pencil"">
 					<i class="fas fa-pencil-alt"></i>
 				</a>
 

@@ -96,7 +96,12 @@ a {
   color: #2d4250 !important;
 }
 
-a:hover {
+a.pencil {
+  margin: auto 0;
+}
+
+a:hover, 
+.btn:hover {
   color: #7e4626 !important;
 }
 
