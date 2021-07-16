@@ -1,5 +1,6 @@
 body {
   font-family: 'open-sans';
+  text-align: justify;
 }
 
 /* media queries à faire sur le break */
@@ -110,7 +111,7 @@ a:hover {
   font-size: 30px !important;
   text-shadow: #2d4250 0.1em 0.1em 0.1em;
   height: 100vh;
-  margin-top: 250px;
+  margin: auto;
 }
 
 #trick a,
