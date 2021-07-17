@@ -303,9 +303,145 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
 
+        // 11th trick
+        $trick = new Trick;
+
+        $trick->setName('900°')
+            ->setContent("
+                    deux tours et demi. 
+                    On désigne par le mot « rotation » uniquement des rotations horizontales. 
+                    Les rotations verticales sont des flips. 
+                    Le principe est d'effectuer une rotation horizontale pendant le saut, 
+                    puis d'attérir en position switch ou normal.
+                    Une rotation peut être frontside ou backside : une rotation frontside correspond 
+                    à une rotation orientée vers la carre backside. Cela peut paraître incohérent 
+                    mais l'origine étant que dans un halfpipe ou une rampe de skateboard, 
+                    une rotation frontside se déclenche naturellement depuis une position frontside, 
+                    et vice-versa. Ainsi pour un rider qui a une position regular 
+                    (pied gauche devant), une rotation frontside se fait dans le sens inverse des 
+                    aiguilles d'une montre.
+                ")
+            ->setSlug(strtolower($this->slugger->slug($trick->getName())))
+            ->setCreatedAt($this->faker->dateTime)
+            ->setUpdatedAt($this->faker->dateTime)
+            ->setCategory($this->faker->randomElement($categories))
+            ->setUser($this->faker->randomElement($users));
+
+        $manager->persist($trick);
+        $manager = $this->pictures($trick, $manager);
+        $manager = $this->videos($trick, $manager);
+
+        // 12th trick
+        $trick = new Trick;
+
+        $trick->setName('Truck Driver')
+            ->setContent("
+                    Saisir le carre avant et carre arrière avec chaque main (comme tenir un volant 
+                    de voiture).
+                    On désigne par le mot « rotation » uniquement des rotations horizontales. 
+                    Les rotations verticales sont des flips. 
+                    Le principe est d'effectuer une rotation horizontale pendant le saut, 
+                    puis d'attérir en position switch ou normal.
+                    Une rotation peut être frontside ou backside : une rotation frontside correspond 
+                    à une rotation orientée vers la carre backside. Cela peut paraître incohérent 
+                    mais l'origine étant que dans un halfpipe ou une rampe de skateboard, 
+                    une rotation frontside se déclenche naturellement depuis une position frontside, 
+                    et vice-versa. Ainsi pour un rider qui a une position regular 
+                    (pied gauche devant), une rotation frontside se fait dans le sens inverse des 
+                    aiguilles d'une montre.
+                ")
+            ->setSlug(strtolower($this->slugger->slug($trick->getName())))
+            ->setCreatedAt($this->faker->dateTime)
+            ->setUpdatedAt($this->faker->dateTime)
+            ->setCategory($this->faker->randomElement($categories))
+            ->setUser($this->faker->randomElement($users));
+
+        $manager->persist($trick);
+        $manager = $this->pictures($trick, $manager);
+        $manager = $this->videos($trick, $manager);
+
+        // 13th trick
+        $trick = new Trick;
+
+        $trick->setName('270°')
+            ->setContent("
+                    trois quarts de tours. 
+                    On désigne par le mot « rotation » uniquement des rotations horizontales. 
+                    Les rotations verticales sont des flips. 
+                    Le principe est d'effectuer une rotation horizontale pendant le saut, 
+                    puis d'attérir en position switch ou normal.
+                    Une rotation peut être frontside ou backside : une rotation frontside correspond 
+                    à une rotation orientée vers la carre backside. Cela peut paraître incohérent 
+                    mais l'origine étant que dans un halfpipe ou une rampe de skateboard, 
+                    une rotation frontside se déclenche naturellement depuis une position frontside, 
+                    et vice-versa. Ainsi pour un rider qui a une position regular 
+                    (pied gauche devant), une rotation frontside se fait dans le sens inverse des 
+                    aiguilles d'une montre.
+                ")
+            ->setSlug(strtolower($this->slugger->slug($trick->getName())))
+            ->setCreatedAt($this->faker->dateTime)
+            ->setUpdatedAt($this->faker->dateTime)
+            ->setCategory($this->faker->randomElement($categories))
+            ->setUser($this->faker->randomElement($users));
+
+        $manager->persist($trick);
+        $manager = $this->pictures($trick, $manager);
+        $manager = $this->videos($trick, $manager);
+
+        // 14th trick
+        $trick = new Trick;
+
+        $trick->setName('630°')
+            ->setContent("
+                    un tour trois quarts. 
+                    On désigne par le mot « rotation » uniquement des rotations horizontales. 
+                    Les rotations verticales sont des flips. 
+                    Le principe est d'effectuer une rotation horizontale pendant le saut, 
+                    puis d'attérir en position switch ou normal.
+                    Une rotation peut être frontside ou backside : une rotation frontside correspond 
+                    à une rotation orientée vers la carre backside. Cela peut paraître incohérent 
+                    mais l'origine étant que dans un halfpipe ou une rampe de skateboard, 
+                    une rotation frontside se déclenche naturellement depuis une position frontside, 
+                    et vice-versa. Ainsi pour un rider qui a une position regular 
+                    (pied gauche devant), une rotation frontside se fait dans le sens inverse des 
+                    aiguilles d'une montre.
+                ")
+            ->setSlug(strtolower($this->slugger->slug($trick->getName())))
+            ->setCreatedAt($this->faker->dateTime)
+            ->setUpdatedAt($this->faker->dateTime)
+            ->setCategory($this->faker->randomElement($categories))
+            ->setUser($this->faker->randomElement($users));
+
+        $manager->persist($trick);
+        $manager = $this->pictures($trick, $manager);
+        $manager = $this->videos($trick, $manager);
+
+        // 15th trick
+        $trick = new Trick;
+
+        $trick->setName('Seat Belt')
+            ->setContent("
+                    Saisir le carre frontside à l'arrière avec la main avant. 
+                    Un grab consiste à attraper la planche avec la main pendant le saut.
+                    Un grab est d'autant plus réussi que la saisie est longue. 
+                    Le saut est d'autant plus esthétique que la saisie du snowboard est franche, 
+                    ce qui permet au rideur d'accentuer la torsion de son corps grâce à la tension 
+                    de sa main sur la planche. On dit alors que le grab est tweaké.
+                ")
+            ->setSlug(strtolower($this->slugger->slug($trick->getName())))
+            ->setCreatedAt($this->faker->dateTime)
+            ->setUpdatedAt($this->faker->dateTime)
+            ->setCategory($this->faker->randomElement($categories))
+            ->setUser($this->faker->randomElement($users));
+
+        $manager->persist($trick);
+        $manager = $this->pictures($trick, $manager);
+        $manager = $this->videos($trick, $manager);
+
         $manager->flush();
     }
 
+    // 10 pictures
     private function pictures($trick, $manager)
     {
         $pictures =  [
@@ -335,6 +471,7 @@ class AppFixtures extends Fixture
         return $manager;
     }
 
+    // 6 videos
     private function videos($trick, $manager)
     {
         $videos = [
@@ -346,7 +483,7 @@ class AppFixtures extends Fixture
             'https://www.youtube.com/embed/M_BOfGX0aGs'
         ];
 
-        // 3 videos by trick
+        // 1 à 3 videos by trick
         for ($v = 0; $v < mt_rand(1, 3); $v++) {
             $video = new Video;
 

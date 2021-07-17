@@ -52,7 +52,7 @@
 		function loadMoreTricks(event) {
 			event.preventDefault();
 			click ++;
-			var start = 5 * click;
+			var start = 10 * click;
 			const url = "{{ path('loadmoretricks') }}/" + start;
 
 			axios.get(url).then(function (response) {
