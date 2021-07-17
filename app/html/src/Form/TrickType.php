@@ -23,6 +23,7 @@ class TrickType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Description',
+                'attr' => ['rows' => '10'],
                 'required' => false
             ])
             ->add('category', EntityType::class, [
