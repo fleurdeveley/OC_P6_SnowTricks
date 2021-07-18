@@ -43,19 +43,35 @@
 
 								{% for picture in trick.pictures %}
 									<div class="pictures my-2">
-										<img src="{{ picture.src }}" class="picture img-fluid" 
-											 alt="{{picture.name}}">
+										<div>
+											<img src="{{ picture.src }}" class="picture img-fluid" 
+											 	alt="{{picture.name}}">
+										</div>
+										<div class="text-end">
+											<button type="button" class="trash btn bg-perso-2" 
+											data-bs-toggle="modal" data-bs-target="#modal-{{ trick.id }}">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										</div>
 									</div>
 								{% endfor %}
 
 								{% for video in trick.videos %}
 									<div class="videos embed-responsive my-2">
-										<iframe   height="150px" width="100%"
-										class="embed-responsive-item" src="{{ video.src }}" 
-										title="{{ video.name }}" frameborder="0" 
-										allow="accelerometer; autoplay; clipboard-write; 
-										encrypted-media; gyroscope; picture-in-picture" 
-										allowfullscreen></iframe>
+										<div>
+											<iframe   height="150px" width="100%"
+											class="embed-responsive-item" src="{{ video.src }}" 
+											title="{{ video.name }}" frameborder="0" 
+											allow="accelerometer; autoplay; clipboard-write; 
+											encrypted-media; gyroscope; picture-in-picture" 
+											allowfullscreen></iframe>
+										</div>
+										<div class="text-end">
+											<button type="button" class="trash btn bg-perso-2" 
+											data-bs-toggle="modal" data-bs-target="#modal-{{ trick.id }}">
+												<i class="fas fa-trash-alt"></i>
+											</button>
+										</div>
 									</div>
 								{% endfor %}
 							</div>
@@ -180,6 +196,7 @@
 		function seeMedia(event) {
 			event.preventDefault();
 			document.getElementById("trickMedia").style.display = "block";
+			this.style.display = "none";
 		}
 
 		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
