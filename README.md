@@ -47,11 +47,11 @@ DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5
 ``` 
 by 
 ```
-DATABASE_URL="mysql://admin:password@project6_mysql:3306/project6?serverVersion = 5.7" 
+DATABASE_URL="mysql://admin:password@project6_mysql:3306/project6?serverVersion=5.7" 
 ```
 and configure your smtp server on the line 
 ```
-MAILER_DSN =smtp://user:password@smtp.mailtrap.io:2525? encryption=tls&auth_mode=login
+MAILER_DSN=smtp://user:password@smtp.mailtrap.io:2525?encryption=tls&auth_mode=login
 ```
 
 5. Create the docker network
