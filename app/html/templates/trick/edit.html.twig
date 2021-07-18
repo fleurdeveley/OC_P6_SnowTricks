@@ -24,13 +24,13 @@
 					{{ form_row(formView.pictures) }}
 					<button id='edit-pictures' data-list-selector='#trick_pictures' 
 							class="btn text-white bg-perso2 mb-3">
-						Ajouter une image
+						<i class="far fa-plus-square"> Ajouter une image</i>
 					</button>
 
 					{{ form_row(formView.videos) }}
 					<button id='edit-videos' data-list-selector='#trick_videos' 
 							class="btn text-white bg-perso2 mb-3">
-						Ajouter une vidéo
+						<i class="far fa-plus-square"> Ajouter une vidéo</i>
 					</button>
 				</div>
 			</div>
@@ -42,7 +42,7 @@
 				</button>
 
 				<button type="submit" class="btn text-white bg-perso2 mb-3 mx-5">
-					<i class="fas fa-save"> Enregistrer</i>
+					<i class="fas fa-save"> Sauvegarder</i>
 				</button>
 
 				{% include 'trick/delete.html.twig' %}
@@ -91,8 +91,34 @@
 			list.append(newElem);
 		}
 
+		function createDeleteButtons(list) {
+			var childs = list.childNodes
+			for(var i = 0; i < childs.length; i++) { 
+				var div = document.createElement('div'); 
+				div.innerHTML = '<button class="delete">SUPPRIMER</button>'; 
+				childs[i].append(div) 
+			};
+		}
+
 		document.getElementById("edit-pictures").addEventListener("click", editPictures);
 		document.getElementById("edit-videos").addEventListener("click", editVideos);
 
+		// Add buttons to the pictures form list (CollectionType)
+		var picturesList = document.getElementById('trick_pictures');
+		createDeleteButtons(picturesList);
+
+		// Add buttons to the videos form list (CollectionType)
+		var picturesList = document.getElementById('trick_videos');
+		createDeleteButtons(picturesList);
+
+		// Delete parent fieldset on click
+		var buttons = document.getElementsByClassName('delete')
+		for(var i = 0; i < buttons.length; i++) { 
+			buttons[i].addEventListener('click', function(event){
+				event.preventDefault(); 
+				var fieldset = this.closest('fieldset'); 
+				fieldset.remove();
+			});
+		}
 	</script>
 {% endblock %}
