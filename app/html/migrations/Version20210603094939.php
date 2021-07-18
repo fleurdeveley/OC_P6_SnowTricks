@@ -21,7 +21,6 @@ final class Version20210603094939 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE category CHANGE name name VARCHAR(50) NOT NULL');
-        $this->addSql('ALTER TABLE comment CHANGE updated_at update_at DATETIME NOT NULL');
         $this->addSql('ALTER TABLE trick ADD slug VARCHAR(255) NOT NULL');
     }
 
@@ -29,7 +28,6 @@ final class Version20210603094939 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE category CHANGE name name VARCHAR(30) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
-        $this->addSql('ALTER TABLE comment CHANGE update_at updated_at DATETIME NOT NULL');
         $this->addSql('ALTER TABLE trick DROP slug');
     }
 }
