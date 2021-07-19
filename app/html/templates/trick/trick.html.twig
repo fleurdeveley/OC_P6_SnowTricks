@@ -39,19 +39,14 @@
 
 								{% for picture in trick.pictures %}
 									<div class="pictures my-2">
-										<img src="{{ picture.src }}" class="picture img-fluid" 
-										alt="{{picture.name}}">
+										<img src="{{ picture.src }}" class="picture img-fluid" alt="{{picture.name}}">
 									</div>
 								{% endfor %}
 
 								{% for video in trick.videos %}
 									<div class="videos embed-responsive my-2">
-										<iframe height="150px" width="100%" 
-										class="embed-responsive-item" src="{{ video.src }}" 
-										title="{{ video.name }}" frameborder="0" 
-										allow="accelerometer; autoplay; clipboard-write;
-										encrypted-media; gyroscope; picture-in-picture" 
-										allowfullscreen></iframe>
+										<iframe height="150px" width="100%" class="embed-responsive-item" src="{{ video.src }}" title="{{ video.name }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+																					encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 									</div>
 								{% endfor %}
 							</div>
@@ -157,36 +152,38 @@
 	<script>
 		var click = 0;
 
-function loadMoreComments(event) {
-event.preventDefault();
-click++;
-var start = 5 * click;
-const url = "{{ path('loadmorecomments', {'slug': trick.slug}) }}/" + start;
+		function loadMoreComments(event) {
+			event.preventDefault();
+			click++;
+			var start = 10 * click;
+			const url = "{{ path('loadmorecomments', {'slug': trick.slug}) }}/" + start;
 
-axios.get(url).then(function (response) {
-console.log(response);
-var comments = document.getElementById('comments');
-comments.insertAdjacentHTML('beforeend', response.data);
+			axios.get(url).then(function (response) {
+				console.log(response);
+				var comments = document.getElementById('comments');
+				comments.insertAdjacentHTML('beforeend', response.data);
 
-}).catch(function (error) {
-if (response.status === 403) {
-console.log("Vous n'êtes pas autorisé à effectuer cette action !");
-} else if (response.status === 404) {
-console.log("La page appelé n'existe pas");
-} else {
-console.log("Une erreur est survenue !");
-}
-});
-}
+			}).catch(function (error) {
+				if (response.status === 403) {
+				console.log("Vous n'êtes pas autorisé à effectuer cette action !");
 
-function seeMedia(event) {
-event.preventDefault();
-document.getElementById("trickMedia").style.display = "block";
-this.style.display = "none";
-}
+				} else if (response.status === 404) {
+					console.log("La page appelé n'existe pas");
 
-document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
+				} else {
+					console.log("Une erreur est survenue !");
+				}
+			});
+		}
 
-document.getElementById("seeMedia").addEventListener("click", seeMedia);
+		function seeMedia(event) {
+			event.preventDefault();
+			document.getElementById("trickMedia").style.display = "block";
+			this.style.display = "none";
+		}
+
+		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
+
+		document.getElementById("seeMedia").addEventListener("click", seeMedia);
 	</script>
 {% endblock %}

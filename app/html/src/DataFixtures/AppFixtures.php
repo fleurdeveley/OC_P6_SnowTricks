@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Picture;
 use App\Entity\Trick;
 use App\Entity\User;
@@ -93,6 +94,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 2nd trick
         $trick = new Trick;
@@ -115,6 +117,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 3rd trick
         $trick = new Trick;
@@ -137,6 +140,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 4th trick
         $trick = new Trick;
@@ -160,6 +164,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 5th trick
         $trick = new Trick;
@@ -180,6 +185,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 6th trick
         $trick = new Trick;
@@ -208,6 +214,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 7th trick
         $trick = new Trick;
@@ -236,6 +243,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 8th trick
         $trick = new Trick;
@@ -264,6 +272,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 9th trick
         $trick = new Trick;
@@ -283,6 +292,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 10th trick
         $trick = new Trick;
@@ -302,6 +312,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 11th trick
         $trick = new Trick;
@@ -330,6 +341,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 12th trick
         $trick = new Trick;
@@ -359,6 +371,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 13th trick
         $trick = new Trick;
@@ -387,6 +400,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 14th trick
         $trick = new Trick;
@@ -415,6 +429,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         // 15th trick
         $trick = new Trick;
@@ -437,6 +452,7 @@ class AppFixtures extends Fixture
         $manager->persist($trick);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
+        $manager = $this->comments($trick, $users, $manager);
 
         $manager->flush();
     }
@@ -492,6 +508,44 @@ class AppFixtures extends Fixture
                 ->setTrick($trick);
 
             $manager->persist($video);
+        }
+
+        return $manager;
+    }
+
+    // 15 comments
+    private function comments($trick, $users, $manager)
+    {
+        $commentsContent =  [
+            "Perso, je me suis vautré à chaque fois que j'ai essayé",
+            "Top, merci pour ces explications, j'ai réussi la figure",
+            "Je n'arrive pas à réaliser la figure.",
+            "Les explications sont nulles.",
+            "Je ferais mieux de prendre des cours de snowboard.",
+            "Je ne comprends pas comment faire.",
+            "Bonne chance à tous les débutants.",
+            "Ce site est génial.",
+            "Le snoowboard : quelles sensations !",
+            "Je me suis mis il y a peu de temps, hâtes de pouvoir faire des figures.",
+            "Génial, je kiffe !!!",
+            "Vivement d'autres figures !!!!",
+            "Hâtes d'être à la saison prochaine.",
+            "Félicitations !!!",
+            "Enfin des explications !!!"
+        ];
+
+        // 15 comments by trick
+        foreach ($commentsContent as $commentContent) {
+            $comment = new Comment;
+
+            $comment->setContent($commentContent)
+                ->setCreatedAt($this->faker->dateTime)
+                ->setUpdatedAt($this->faker->dateTime)
+                ->setUser($this->faker->randomElement($users))
+                ->setTrick($trick);
+
+            $manager->persist($comment);
+            $comments[] = $comment;
         }
 
         return $manager;
