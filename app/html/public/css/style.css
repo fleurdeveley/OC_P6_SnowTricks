@@ -12,7 +12,7 @@ body {
 @media only screen and (max-width: 768px) { 
 	#trickMedia {
 		display: none;
-	}
+  }
 
 	#seeMedia {
 		display: block;
