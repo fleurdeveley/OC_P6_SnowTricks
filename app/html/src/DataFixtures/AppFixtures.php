@@ -31,47 +31,6 @@ class AppFixtures extends Fixture
     {
         $users = [];
         $categories = [];
-        $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
-        $avatar = ['/img/defaultAvatar.png'];
-
-        // admin
-        $admin = new User;
-
-        $admin->setEmail('admin@gmail.com')
-            ->setPassword($this->hasher->hashPassword($admin, 'password'))
-            ->setFullName('Admin')
-            ->setAvatar($this->faker->randomElement($avatar))
-            ->setRoles(['ROLES_ADMIN'])
-            ->setToken(md5(random_bytes(10)))
-            ->setActivated(true);
-
-        $manager->persist($admin);
-
-        // 5 users
-        for ($u = 0; $u < 5; $u++) {
-            $user = new User();
-
-            $user->setEmail("user$u@gmail.com")
-                ->setPassword($this->hasher->hashPassword($user, 'password'))
-                ->setFullName($this->faker->name())
-                ->setAvatar($this->faker->randomElement($avatar))
-                ->setRoles(['ROLES_USER'])
-                ->setToken(md5(random_bytes(10)))
-                ->setActivated(true);
-
-            $manager->persist($user);
-            $users[] = $user;
-        }
-
-        // 4 categories
-        foreach ($categoriesName as $categoryName) {
-            $category = new Category;
-
-            $category->setName($categoryName);
-
-            $manager->persist($category);
-            $categories[] = $category;
-        }
 
         // 1st trick
         $trick = new Trick;
@@ -95,6 +54,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 2nd trick
         $trick = new Trick;
@@ -118,6 +80,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 3rd trick
         $trick = new Trick;
@@ -141,6 +106,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 4th trick
         $trick = new Trick;
@@ -165,6 +133,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 5th trick
         $trick = new Trick;
@@ -186,9 +157,14 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 6th trick
         $trick = new Trick;
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         $trick->setName('360°')
             ->setContent("
@@ -215,6 +191,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 7th trick
         $trick = new Trick;
@@ -244,6 +223,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 8th trick
         $trick = new Trick;
@@ -273,6 +255,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 9th trick
         $trick = new Trick;
@@ -293,6 +278,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 10th trick
         $trick = new Trick;
@@ -313,6 +301,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 11th trick
         $trick = new Trick;
@@ -342,6 +333,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 12th trick
         $trick = new Trick;
@@ -372,6 +366,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 13th trick
         $trick = new Trick;
@@ -401,6 +398,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 14th trick
         $trick = new Trick;
@@ -430,6 +430,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         // 15th trick
         $trick = new Trick;
@@ -453,6 +456,9 @@ class AppFixtures extends Fixture
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
         $manager = $this->comments($trick, $users, $manager);
+        $manager = $this->categories($trick, $manager);
+        $manager = $this->user($trick, $manager);
+        $manager = $this->admin($trick, $manager);
 
         $manager->flush();
     }
@@ -547,6 +553,66 @@ class AppFixtures extends Fixture
             $manager->persist($comment);
             $comments[] = $comment;
         }
+
+        return $manager;
+    }
+
+    private function categories($trick, $manager)
+    {
+        $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
+
+        // 4 categories
+        foreach ($categoriesName as $categoryName) {
+            $category = new Category;
+
+            $category->setName($categoryName);
+
+            $manager->persist($category);
+            $categories[] = $category;
+        }
+
+        return $manager;
+    }
+
+    private function user($trick, $manager)
+    {
+        $avatar = ['/img/defaultAvatar.png'];
+
+        // 5 users
+        for ($u = 0; $u < 5; $u++) {
+            $user = new User();
+
+            $user->setEmail("user$u@gmail.com")
+                ->setPassword($this->hasher->hashPassword($user, 'password'))
+                ->setFullName($this->faker->name())
+                ->setAvatar($this->faker->randomElement($avatar))
+                ->setRoles(['ROLES_USER'])
+                ->setToken(md5(random_bytes(10)))
+                ->setActivated(true);
+
+            $manager->persist($user);
+            $users[] = $user;
+        }
+
+        return $manager;
+    }
+
+    private function admin($trick, $manager)
+    {
+        $avatar = ['/img/defaultAvatar.png'];
+
+        // admin
+        $admin = new User;
+
+        $admin->setEmail('admin@gmail.com')
+            ->setPassword($this->hasher->hashPassword($admin, 'password'))
+            ->setFullName('Admin')
+            ->setAvatar($this->faker->randomElement($avatar))
+            ->setRoles(['ROLES_ADMIN'])
+            ->setToken(md5(random_bytes(10)))
+            ->setActivated(true);
+
+        $manager->persist($admin);
 
         return $manager;
     }
