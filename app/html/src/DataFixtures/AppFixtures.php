@@ -19,6 +19,9 @@ class AppFixtures extends Fixture
     protected $slugger;
     protected $hasher;
     protected $faker;
+    protected $users = [];
+    protected $categories = [];
+    protected $admin;
 
     public function __construct(SluggerInterface $slugger, UserPasswordHasherInterface $hasher)
     {
@@ -29,8 +32,9 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $users = [];
-        $categories = [];
+        $manager = $this->categories($manager);
+        $manager = $this->user($manager);
+        $manager = $this->admin($manager);
 
         // 1st trick
         $trick = new Trick;
@@ -47,16 +51,14 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 2nd trick
         $trick = new Trick;
@@ -73,16 +75,14 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 3rd trick
         $trick = new Trick;
@@ -99,16 +99,14 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 4th trick
         $trick = new Trick;
@@ -126,16 +124,16 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
+
 
         // 5th trick
         $trick = new Trick;
@@ -150,21 +148,18 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 6th trick
         $trick = new Trick;
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
 
         $trick->setName('360°')
             ->setContent("
@@ -184,16 +179,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 7th trick
         $trick = new Trick;
@@ -216,16 +210,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 8th trick
         $trick = new Trick;
@@ -248,16 +241,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 9th trick
         $trick = new Trick;
@@ -271,16 +263,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 10th trick
         $trick = new Trick;
@@ -294,16 +285,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 11th trick
         $trick = new Trick;
@@ -326,16 +316,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 12th trick
         $trick = new Trick;
@@ -359,16 +348,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 13th trick
         $trick = new Trick;
@@ -391,16 +379,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 14th trick
         $trick = new Trick;
@@ -423,16 +410,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         // 15th trick
         $trick = new Trick;
@@ -449,16 +435,15 @@ class AppFixtures extends Fixture
             ->setSlug(strtolower($this->slugger->slug($trick->getName())))
             ->setCreatedAt($this->faker->dateTime)
             ->setUpdatedAt($this->faker->dateTime)
-            ->setCategory($this->faker->randomElement($categories))
-            ->setUser($this->faker->randomElement($users));
+            ->setCategory($this->faker->randomElement($this->categories))
+            ->setUser($this->faker->randomElement($this->users));
 
         $manager->persist($trick);
+
+        $manager = $this->pictures($trick, $manager);
         $manager = $this->pictures($trick, $manager);
         $manager = $this->videos($trick, $manager);
-        $manager = $this->comments($trick, $users, $manager);
-        $manager = $this->categories($trick, $manager);
-        $manager = $this->user($trick, $manager);
-        $manager = $this->admin($trick, $manager);
+        $manager = $this->comments($trick, $this->users, $manager);
 
         $manager->flush();
     }
@@ -557,7 +542,7 @@ class AppFixtures extends Fixture
         return $manager;
     }
 
-    private function categories($trick, $manager)
+    private function categories($manager)
     {
         $categoriesName = ['grabs', 'slides', 'rotations', 'old school'];
 
@@ -568,13 +553,13 @@ class AppFixtures extends Fixture
             $category->setName($categoryName);
 
             $manager->persist($category);
-            $categories[] = $category;
+            $this->categories[] = $category;
         }
 
         return $manager;
     }
 
-    private function user($trick, $manager)
+    private function user($manager)
     {
         $avatar = ['/img/defaultAvatar.png'];
 
@@ -591,17 +576,16 @@ class AppFixtures extends Fixture
                 ->setActivated(true);
 
             $manager->persist($user);
-            $users[] = $user;
+            $this->users[] = $user;
         }
 
         return $manager;
     }
 
-    private function admin($trick, $manager)
+    private function admin($manager)
     {
         $avatar = ['/img/defaultAvatar.png'];
 
-        // admin
         $admin = new User;
 
         $admin->setEmail('admin@gmail.com')
@@ -613,6 +597,8 @@ class AppFixtures extends Fixture
             ->setActivated(true);
 
         $manager->persist($admin);
+
+        $this->admin = $admin;
 
         return $manager;
     }
