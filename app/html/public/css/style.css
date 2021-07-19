@@ -3,12 +3,12 @@ body {
   text-align: justify;
 }
 
-/* media queries à faire sur le break */
 .break {
   flex-basis: 100%;
   height: 0;
 }
 
+/* media queries */
 @media only screen and (max-width: 768px) { 
 	#trickMedia {
 		display: none;
