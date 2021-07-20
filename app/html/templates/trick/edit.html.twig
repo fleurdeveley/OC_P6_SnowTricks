@@ -24,13 +24,13 @@
 					{{ form_row(formView.pictures) }}
 					<button id='edit-pictures' data-list-selector='#trick_pictures' 
 							class="btn text-white bg-perso2 mb-3">
-						<i class="far fa-plus-square"> Ajouter une image</i>
+						<i class="fas fa-plus-square"> Ajouter une image</i>
 					</button>
 
 					{{ form_row(formView.videos) }}
 					<button id='edit-videos' data-list-selector='#trick_videos' 
 							class="btn text-white bg-perso2 mb-3">
-						<i class="far fa-plus-square"> Ajouter une vidéo</i>
+						<i class="fas fa-plus-square"> Ajouter une vidéo</i>
 					</button>
 				</div>
 			</div>
@@ -57,9 +57,8 @@
 	{{ parent() }}
 
 	<script>
-		function editPictures(event) {
+		function edit(event, list) {
 			event.preventDefault();
-			var list = document.getElementById("trick_pictures");
 			var counter = list.childElementCount;
 
 			var newWidget = list.getAttribute('data-prototype');
@@ -74,28 +73,21 @@
 			list.append(newElem);
 		}
 
+		function editPictures(event) {
+			var list = document.getElementById("trick_pictures");
+			edit(event, list);
+		}
+
 		function editVideos(event) {
-			event.preventDefault();
 			var list = document.getElementById("trick_videos");
-			var counter = list.childElementCount;
-
-			var newWidget = list.getAttribute('data-prototype');
-
-			newWidget = newWidget.replace(/__name__label__/g, '');
-			newWidget = newWidget.replace(/__name__/g, counter);
-			counter++;
-			var newElem = document.createElement('div');
-			newElem.innerHTML = newWidget;
-			var hr = document.createElement('hr');
-			list.append(hr);
-			list.append(newElem);
+			edit(event, list);
 		}
 
 		function createDeleteButtons(list) {
 			var childs = list.childNodes
 			for(var i = 0; i < childs.length; i++) { 
 				var div = document.createElement('div'); 
-				div.innerHTML = '<button class="delete">SUPPRIMER</button>'; 
+				div.innerHTML = '<button class="delete text-white bg-perso2 p-1 mb-1 mx-3"><i class="fas fa-trash-alt"> Supprimer</i></button>'; 
 				childs[i].append(div) 
 			};
 		}
