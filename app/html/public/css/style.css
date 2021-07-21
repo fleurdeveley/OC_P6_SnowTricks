@@ -1,17 +1,18 @@
 body {
   font-family: 'open-sans';
+  text-align: justify;
 }
 
-/* media queries à faire sur le break */
 .break {
   flex-basis: 100%;
   height: 0;
 }
 
+/* media queries */
 @media only screen and (max-width: 768px) { 
 	#trickMedia {
 		display: none;
-	}
+  }
 
 	#seeMedia {
 		display: block;
@@ -95,7 +96,12 @@ a {
   color: #2d4250 !important;
 }
 
-a:hover {
+a.pencil {
+  margin: auto 0;
+}
+
+a:hover,
+.trash:hover {
   color: #7e4626 !important;
 }
 
@@ -110,7 +116,7 @@ a:hover {
   font-size: 30px !important;
   text-shadow: #2d4250 0.1em 0.1em 0.1em;
   height: 100vh;
-  margin-top: 250px;
+  margin: auto;
 }
 
 #trick a,

@@ -15,7 +15,7 @@ class HomeController extends AbstractController
      */
     public function homepage(TrickRepository $trickRepository)
     {
-        $tricks = $trickRepository->findBy([], ['created_at' => 'DESC'], 5);
+        $tricks = $trickRepository->findBy([], ['created_at' => 'DESC'], 10);
 
         return $this->render('home/home.html.twig', [
             'tricks' => $tricks
@@ -23,11 +23,11 @@ class HomeController extends AbstractController
     }
 
     /**
-     * To load the next 5 tricks
+     * To load the next 10 tricks
      * 
      * @Route("/loadmoretricks/{start}", name="loadmoretricks", requirements={"start": "\d+"})
      */
-    public function loadMoreTricks(TrickRepository $trickRepository, $start = 5)
+    public function loadMoreTricks(TrickRepository $trickRepository, $start = 10)
     {
         $tricks = $trickRepository->findBy([], ['created_at' => 'DESC'], 5, $start);
 

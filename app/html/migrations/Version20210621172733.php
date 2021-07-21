@@ -23,6 +23,7 @@ final class Version20210621172733 extends AbstractMigration
         $this->addSql('ALTER TABLE comment ADD user_id INT NOT NULL');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_9474526CA76ED395 ON comment (user_id)');
+        $this->addSql('ALTER TABLE trick ADD user_id INT NOT NULL');
         $this->addSql('ALTER TABLE trick ADD CONSTRAINT FK_D8F0A91EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_D8F0A91EA76ED395 ON trick (user_id)');
     }
@@ -35,5 +36,6 @@ final class Version20210621172733 extends AbstractMigration
         $this->addSql('ALTER TABLE comment DROP user_id');
         $this->addSql('ALTER TABLE trick DROP FOREIGN KEY FK_D8F0A91EA76ED395');
         $this->addSql('DROP INDEX IDX_D8F0A91EA76ED395 ON trick');
+        $this->addSql('ALTER TABLE trick DROP user_id');
     }
 }

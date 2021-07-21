@@ -21,8 +21,8 @@
 {# list of tricks #}
 {% block body %}
 
-	<div class="container-fluid">
-		<div class="d-flex flex-wrap justify-content-md-between mb-3" id="tricks">
+	<div class="container-fluid my-5">
+		<div class="d-flex flex-wrap justify-content-center mb-3" id="tricks">
 			{% include 'home/tricks.html.twig' %}
 		</div>
 	</div>
@@ -52,7 +52,7 @@
 		function loadMoreTricks(event) {
 			event.preventDefault();
 			click ++;
-			var start = 5 * click;
+			var start = 10 * click;
 			const url = "{{ path('loadmoretricks') }}/" + start;
 
 			axios.get(url).then(function (response) {

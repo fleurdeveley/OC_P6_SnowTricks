@@ -20,18 +20,12 @@ final class Version20210629070655 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE category DROP FOREIGN KEY FK_64C19C17E3C61F9');
-        $this->addSql('DROP INDEX IDX_64C19C17E3C61F9 ON category');
-        $this->addSql('ALTER TABLE category DROP owner_id');
         $this->addSql('ALTER TABLE user ADD token VARCHAR(255) DEFAULT NULL, ADD activated TINYINT(1) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE category ADD owner_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE category ADD CONSTRAINT FK_64C19C17E3C61F9 FOREIGN KEY (owner_id) REFERENCES user (id)');
-        $this->addSql('CREATE INDEX IDX_64C19C17E3C61F9 ON category (owner_id)');
         $this->addSql('ALTER TABLE user DROP token, DROP activated');
     }
 }
