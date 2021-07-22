@@ -193,7 +193,7 @@ class TrickController extends AbstractController
      * @Route("/loadmorecomments/{slug}/{start}", name="loadmorecomments", 
      * requirements={"start": "\d+"})
      */
-    public function loadMoreComments(TrickRepository $trickRepository, $slug, $start = 5)
+    public function loadMoreComments(TrickRepository $trickRepository, $slug, $start = 10)
     {
         $trick = $trickRepository->findOneBySlug($slug);
 
