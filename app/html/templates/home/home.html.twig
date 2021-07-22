@@ -47,19 +47,27 @@
 	{{ parent() }}
 
 	<script>
+		// j'initialise à 0
 		var click = 0;
 
 		function loadMoreTricks(event) {
+			// j'annule l'action du bouton par défault
 			event.preventDefault();
+			// j'incrémente
 			click ++;
+			// je commence à 10 tricks par page et à chque click je rajoute 10 tricks
 			var start = 10 * click;
+			// je fais appelle à l'url en lui ajoutant le start
 			const url = "{{ path('loadmoretricks') }}/" + start;
 
+			// j'appelle l'url avec la librairie axios et quand j'ai la réponse
 			axios.get(url).then(function (response) {
-				console.log(response);
+				// je vais checher les commentaires avec l'id comments
 				var tricks = document.getElementById('tricks');
+				// j'insère avant la fin de l'élément la réponse de l'url
 				tricks.insertAdjacentHTML('beforeend', response.data);
 
+			// messages d'erreur
 			}).catch(function (error) {
 				if (response.status === 403) {
 					console.log("Vous n'êtes pas autorisé à effectuer cette action !");
@@ -71,6 +79,7 @@
 			});
 		}
 
+		// je récupère le bouton loadmoretricks, je lui ajoute un évènement click et je lui applique la méthode loadmoretricks
 		document.getElementById("loadmoretricks").addEventListener("click", loadMoreTricks);
 	</script>
 {% endblock %}
