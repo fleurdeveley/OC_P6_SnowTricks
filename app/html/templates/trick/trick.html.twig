@@ -150,19 +150,27 @@
 	{{ parent() }}
 
 	<script>
+		// j'initialise à 0
 		var click = 0;
 
 		function loadMoreComments(event) {
+			// j'annule l'action du bouton par défault
 			event.preventDefault();
+			// j'incrémente
 			click++;
+			// je commence à 10 commentaires par page et à chque click je rajoute 10 commentaires
 			var start = 10 * click;
+			// je fais appelle à l'url en lui ajoutant le start
 			const url = "{{ path('loadmorecomments', {'slug': trick.slug}) }}/" + start;
 
+			// j'appelle l'url avec la librairie axios et quand j'ai la réponse
 			axios.get(url).then(function (response) {
-				console.log(response);
+				// je vais checher les commentaires avec l'id comments
 				var comments = document.getElementById('comments');
+				// j'insère avant la fin de l'élément la réponse de l'url
 				comments.insertAdjacentHTML('beforeend', response.data);
 
+			// messages d'erreur
 			}).catch(function (error) {
 				if (response.status === 403) {
 				console.log("Vous n'êtes pas autorisé à effectuer cette action !");
@@ -177,13 +185,17 @@
 		}
 
 		function seeMedia(event) {
+			// j'annule l'action du bouton par défault
 			event.preventDefault();
+			// je récupère le block des medias grâce à l'id trickMedia, je lui ajoute un style display block
 			document.getElementById("trickMedia").style.display = "block";
+			// je récupère bouton seeMedia, je lui ajoute un style display none 
 			this.style.display = "none";
 		}
 
+		// je récupère le bouton loadmorecomments, je lui ajoute un evènement click et je lui applique la méthode seeMedia
 		document.getElementById("loadmorecomments").addEventListener("click", loadMoreComments);
-
+		// je récupère le bouton seeMedia, je lui ajoute un évènement click et je lui applique la méthode seeMedia
 		document.getElementById("seeMedia").addEventListener("click", seeMedia);
 	</script>
 {% endblock %}

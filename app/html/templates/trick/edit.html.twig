@@ -58,52 +58,72 @@
 
 	<script>
 		function edit(event, list) {
+			// j'annule l'action du bouton par défault
 			event.preventDefault();
+			// je compte le nombre d'élements enfants de la list
 			var counter = list.childElementCount;
 
+			// je vais chercher dans la list l'attribut data-prototype
 			var newWidget = list.getAttribute('data-prototype');
 
+			// dans newWidget, je remplace __name__label__ par une chaine de caractère vide
 			newWidget = newWidget.replace(/__name__label__/g, '');
+			// dans newWidget, je remplace __name__ et je replace par le counter
 			newWidget = newWidget.replace(/__name__/g, counter);
+			// j'incrémente le counter
 			counter++;
+			// je créais l'élément div
 			var newElem = document.createElement('div');
+			// dans newElem, j'ajoute le newWidget
 			newElem.innerHTML = newWidget;
+			// je créais l'élément hr
 			var hr = document.createElement('hr');
+			// j'ajoute le hr et le newElem à la list
 			list.append(hr);
 			list.append(newElem);
 		}
 
 		function editPictures(event) {
+			// je récupère l'élement ayant l'id trick_pictures
 			var list = document.getElementById("trick_pictures");
+			// je lui applique la méthode edit
 			edit(event, list);
 		}
 
 		function editVideos(event) {
+			// je récupère l'élement ayant l'id trick_videos
 			var list = document.getElementById("trick_videos");
+			// je lui applique la méthode edit
 			edit(event, list);
 		}
 
 		function createDeleteButtons(list) {
+			// 
 			var childs = list.childNodes
 			for(var i = 0; i < childs.length; i++) { 
+				// je créais l'élément div
 				var div = document.createElement('div'); 
+				// j'ajoute à la div le code html du bouton
 				div.innerHTML = '<button class="delete text-white bg-perso2 p-1 mb-1 mx-3"><i class="fas fa-trash-alt"> Supprimer</i></button>'; 
+				// à chaque enfant, je lui ajoute la div
 				childs[i].append(div) 
 			};
 		}
 
+		// je récupère le bouton edit-pictures, je lui ajoute un evènement click et je lui applique la méthode editPictures
 		document.getElementById("edit-pictures").addEventListener("click", editPictures);
+		// je récupère le bouton edit-videos, je lui ajoute un evènement click et je lui applique la méthode editVideos
 		document.getElementById("edit-videos").addEventListener("click", editVideos);
 
-		// Add buttons to the pictures form list (CollectionType)
+		// j'ajoute le bouton supprimer à toutes les images 
 		var picturesList = document.getElementById('trick_pictures');
 		createDeleteButtons(picturesList);
 
-		// Add buttons to the videos form list (CollectionType)
+		// j'ajoute le bouton supprimer à toutes les vidéos
 		var picturesList = document.getElementById('trick_videos');
 		createDeleteButtons(picturesList);
 
-		// Delete parent fieldset on click
+		// je supprime les champs parent sur le click
 		var buttons = document.getElementsByClassName('delete')
 		for(var i = 0; i < buttons.length; i++) { 
 			buttons[i].addEventListener('click', function(event){
